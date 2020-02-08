@@ -1,0 +1,26 @@
+
+@mixin hide-text {
+    text-indent: 101%;
+    overflow: hidden;
+    white-space: nowrap; 
+}
+
+@mixin norepeat {
+    background-repeat: no-repeat;
+}
+
+@mixin pointer {
+    cursor: pointer;
+}
+
+@mixin over-hidden {
+    overflow: hidden;
+}
+
+@mixin noshow {
+    display: none;    
+}
+
+@mixin clearfloat {
+    clear: both;
+}

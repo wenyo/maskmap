@@ -1,0 +1,62 @@
+@mixin pc940{
+    @media (max-width:940px){
+        @content
+    }
+};
+
+@mixin pc900{
+    @media (max-width:900px){
+        @content
+    }
+};
+
+@mixin ipad768 {
+    @media (max-width:768px) {
+        @content
+    }
+};
+
+@mixin ipad767 {
+    @media (max-width:767px) {
+        @content
+    }
+};
+
+@mixin pad700 {
+    @media (max-width:700px){
+        @content
+    }
+};
+
+@mixin pad600 {
+    @media (max-width:600px){
+        @content
+    }
+};
+
+@mixin pad500 {
+    @media (max-width:500px){
+        @content
+    }
+};
+
+@mixin phone470 {
+    @media (max-width:470px){
+        @content
+    }
+};
+
+@mixin phone414 {
+    @media (max-width:414px){
+        @content
+    }
+};
+
+@mixin ip5 {
+    @media (max-width:320px){
+        @content
+    }
+};
+
+
+
