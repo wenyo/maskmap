@@ -1,6 +1,9 @@
+@import './basic/reset';
 @import './basic/mixin_screen';
 @import './basic/mixin';
-@import './basic/reset';
 @import './basic/variable';
 
-@import './page/header';
+@import './basic/basic';
+@import './page/info';
+@import './page/searchBlock';
+@import './page/maskData';

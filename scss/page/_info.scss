@@ -1,0 +1,50 @@
+.dateInfo{
+    width: 160px;
+    display: inline-flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    font-size: $fontsize-xl;
+    img{
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.date{
+    color: $color-4;
+    font-size: $fontsize-xxxl;
+    font-weight: bold;
+}
+
+.detail{
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.note{
+    color: $color-5;
+    line-height: $line-h-m;
+    span{
+        margin: 0 5px;
+    }
+}
+
+.reLoading{
+    width: 96px;
+    height: 36px;
+    color: $color-4;
+    font-size: $fontsize-l;
+    border: 2px solid $color-4;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include pointer;
+    @include tran-3;
+    &:hover{
+        background-color: $color-4;
+        color: $color-11;
+        box-shadow: 3px 3px 10px $color-10;
+    }
+}

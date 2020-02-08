@@ -7,6 +7,7 @@
     <title>口罩即時查</title>
     <link rel="stylesheet" href="./css/min/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
 </head>
 <body>
     <div id="mask">
@@ -14,9 +15,90 @@
             <img src="./img/logo.png" alt="">
             <h1>口罩即時查</h1>
         </header>
+
         <nav></nav>
-        <article></article>
+
+        <article>
+
+            <section class="searchBlock">
+                <div class="searchInput">
+                    <input type="text" placeholder="請輸入想查詢位置" id="search">
+                    <img src="../../img/ic_location.png">
+                </div>
+            </section>
+
+            <section class='info'>
+                <div class="dateInfo">
+                    <span class='date'>{{vDate[iDate]}}</span>
+                <span>購買日</span>
+                    <img src="./img/ic_help@2x.png" alt="">
+                </div>
+
+                <div class="detail" v-if='vMaskData.length'>
+                    <div class="note">
+                        <p>距離方圓<span>5公里</span>以內的供應商</p>
+                        <p>資訊更新時間<span>{{sUpdateTime}}</span></p>
+                    </div>
+                    <div class="reLoading">
+                        <span>重整列表</span>
+                    </div>
+                </div>
+                <div></div>
+            </section>
+
+            <section class="maskData" v-if='vMaskData.length'>
+                <div class="pharmacy" v-for='(maskInfo, idx) in vMaskData' v-if='idx <= dataNumber'>
+                    <div class="maskNumber">
+                        <div class="mask_adult maskStyle">
+                            <div>成人口罩數量</div>
+                            <div><span>{{maskInfo.properties.mask_adult}}</span>片</div>
+                            <img src="./img/ic_stock_full@2x.png">
+                        </div>
+                        <div class="mask_child maskStyle">
+                            <div>兒童口罩數量</div>
+                            <div><span>{{maskInfo.properties.mask_child}}</span>片</div>
+                            <img src="./img/ic_stock_few@2x.png">
+                        </div>                       
+                    </div>
+
+                    <div class="pharmacyInfo">
+                        <div class="name active">
+                            <span>{{maskInfo.properties.name}}</span>
+                            <span>1.2 km</span>
+                            <span>即將休息</span>
+                        </div>
+                        <div class='detailStyle'>
+                            <span>地址</span>
+                            <span class="wrap">{{maskInfo.properties.address}}</span>
+                            <span class='bottomLine'>於地圖查看</span>
+                        </div>
+                        <div class='detailStyle'>
+                            <span>電話</span>
+                            <span>{{maskInfo.properties.phone}}</span>
+                            <span class='bottomLine'>撥打電話</span>
+                        </div>
+                        <div v-if='maskInfo.properties.note' class='detailStyle'>
+                            <span>備註</span>
+                            <span class="wrap">{{maskInfo.properties.note}}</span>
+                        </div>
+                        <div v-if='maskInfo.properties.custom_note' class='detailStyle'>
+                            <span>公告</span>
+                            <span class="wrap">{{maskInfo.properties.custom_note}}</span class="wrap"></span>>
+                        </div>
+                    </div>
+ 
+                </div>
+                <pre>
+
+            </section>
+
+            <section v-else>
+                Loading....
+            </section>
+        </article>
+
         <footer></footer>
+
     </div>
     <script src="./all.js"></script>
 </body>

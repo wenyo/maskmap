@@ -4,6 +4,9 @@
     overflow: hidden;
     white-space: nowrap; 
 }
+@mixin tran-3{
+    transition: all .3s;
+}
 
 @mixin norepeat {
     background-repeat: no-repeat;

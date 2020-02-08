@@ -1,0 +1,24 @@
+#mask{
+    background-color: $color-11;
+    min-height: 100vh;
+    font-family: Regular Noto Sans CJK TC;
+    font-size: $fontsize-m;
+}
+
+header{
+    background: $color-12;
+    padding: 20px 16px;
+    display: flex;
+    align-items: center;
+    font-size: $fontsize-xl;
+    img{
+        width: 30px;
+        height: auto;
+        margin-right: 10px;
+    }
+}
+
+section{
+    padding: 5px 16px;
+    margin: 1vh 0;
+}

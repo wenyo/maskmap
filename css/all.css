@@ -58,4 +58,313 @@ img {
 }
 
 /*--css reset end--*/
+#mask {
+  background-color: #FAFAFA;
+  min-height: 100vh;
+  font-family: Regular Noto Sans CJK TC;
+  font-size: 12px;
+}
+
+header {
+  background: #FFFFFF;
+  padding: 20px 16px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 16px;
+}
+
+header img {
+  width: 30px;
+  height: auto;
+  margin-right: 10px;
+}
+
+section {
+  padding: 5px 16px;
+  margin: 1vh 0;
+}
+
+.dateInfo {
+  width: 160px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  font-size: 16px;
+}
+
+.dateInfo img {
+  width: 24px;
+  height: 24px;
+}
+
+.date {
+  color: #34495E;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.detail {
+  margin-top: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.note {
+  color: #566778;
+  line-height: 16px;
+}
+
+.note span {
+  margin: 0 5px;
+}
+
+.reLoading {
+  width: 96px;
+  height: 36px;
+  color: #34495E;
+  font-size: 14px;
+  border: 2px solid #34495E;
+  border-radius: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.reLoading:hover {
+  background-color: #34495E;
+  color: #FAFAFA;
+  -webkit-box-shadow: 3px 3px 10px #34495E33;
+          box-shadow: 3px 3px 10px #34495E33;
+}
+
+.searchInput {
+  display: inline-block;
+  position: relative;
+}
+
+.searchInput img {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 12px;
+  right: 10px;
+}
+
+#search {
+  top: 81px;
+  left: 16px;
+  width: 343px;
+  height: 46px;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #34495E33;
+  border-radius: 10px;
+  opacity: 1;
+  padding: 5px 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-size: 16px;
+  color: #34495E;
+}
+
+.maskData {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: wrap;
+      flex-flow: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.pharmacy {
+  width: 30vw;
+  background: #FFFFFF;
+  -webkit-box-shadow: 0px 3px 10px #0000001A;
+          box-shadow: 0px 3px 10px #0000001A;
+  border-radius: 10px;
+  padding: 15px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+.maskNumber {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.maskStyle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 92px;
+  width: 48%;
+  border-radius: 10px;
+  padding: 12px 16px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #FFFFFF;
+  position: relative;
+}
+
+.maskStyle div:nth-child(1) {
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.maskStyle span {
+  font-size: 29px;
+  font-weight: bold;
+}
+
+.maskStyle img {
+  width: 30%;
+  height: auto;
+  position: absolute;
+  bottom: 10px;
+  right: -3px;
+}
+
+.mask_adult {
+  background: #11787A;
+}
+
+.mask_child {
+  background: #E67E22;
+}
+
+.pharmacyInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: 10px;
+  color: #566778;
+}
+
+.pharmacyInfo > div {
+  margin: 5px 0;
+}
+
+.name {
+  position: relative;
+}
+
+.name span:nth-child(1) {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.name span:nth-child(2) {
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.name span:nth-child(3) {
+  display: inline-block;
+  padding: 5px 3px;
+  border-radius: 6px;
+}
+
+.name:before {
+  content: '';
+  border: 4px solid #FFFFFF;
+  height: 100%;
+  position: absolute;
+  top: -6px;
+  left: -15px;
+}
+
+.detailStyle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  position: relative;
+}
+
+.detailStyle .wrap {
+  word-break: break-all;
+  max-width: 50%;
+  display: inline-block;
+}
+
+.detailStyle span {
+  margin-right: 10px;
+}
+
+.bottomLine {
+  text-decoration: underline;
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.bottomLine:hover {
+  background: #a9a9a91a;
+}
+
+.active span:nth-child(3) {
+  color: #E67E22;
+  background: #FEF5E7;
+}
+
+.active:before {
+  border-left: 4px solid #E67E22;
+}
+
+.rest span:nth-child(3) {
+  color: #A9A9A9;
+  background: #a9a9a91a;
+}
+
+.rest:before {
+  border-left: 4px solid #A9A9A9;
+}
 /*# sourceMappingURL=all.css.map */

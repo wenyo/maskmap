@@ -1,0 +1,26 @@
+.searchInput{
+    display: inline-block;
+    position: relative;
+    img{
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        top: 12px;
+        right: 10px;
+    }
+}
+
+#search{
+    top: 81px;
+    left: 16px;
+    width: 343px;
+    height: 46px;
+    background: $color-12 0% 0% no-repeat padding-box;
+    border: 1px solid $color-10;
+    border-radius: 10px;
+    opacity: 1;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    font-size: $fontsize-xl;
+    color: $color-4;
+}
