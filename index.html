@@ -22,8 +22,8 @@
 
             <section class="searchBlock">
                 <div class="searchInput">
-                    <input type="text" placeholder="請輸入想查詢位置" id="search">
-                    <img src="../../img/ic_location.png">
+                    <input type="text" placeholder="請輸入想查詢位置" id="search" v-model='searchCity'>
+                    <img src="./img/ic_location.png">
                 </div>
             </section>
 
@@ -34,38 +34,38 @@
                     <img src="./img/ic_help@2x.png" alt="">
                 </div>
 
-                <div class="detail" v-if='vMaskData.length'>
+                <div class="detail" v-if='vShowMask.length'>
                     <div class="note">
                         <p>距離方圓<span>5公里</span>以內的供應商</p>
                         <p>資訊更新時間<span>{{sUpdateTime}}</span></p>
                     </div>
-                    <div class="reLoading">
+                    <div class="reLoading" @click='getMaskData()'>
                         <span>重整列表</span>
                     </div>
                 </div>
                 <div></div>
             </section>
 
-            <section class="maskData" v-if='vMaskData.length'>
-                <div class="pharmacy" v-for='(maskInfo, idx) in vMaskData' v-if='idx <= dataNumber'>
+            <section class="maskData" v-if='vShowMask.length'>
+                <div class="pharmacy" v-for='(maskInfo, idx) in vShowMask' v-if='idx < dataNumberNow'>
                     <div class="maskNumber">
-                        <div class="mask_adult maskStyle">
+                        <div class="maskStyle" :class='vMaskClass[getMaskStockIdx(maskInfo.properties.mask_adult)]'>
                             <div>成人口罩數量</div>
                             <div><span>{{maskInfo.properties.mask_adult}}</span>片</div>
-                            <img src="./img/ic_stock_full@2x.png">
+                            <img :src="vMaskImg[getMaskStockIdx(maskInfo.properties.mask_adult)]">
                         </div>
-                        <div class="mask_child maskStyle">
+                        <div class="maskStyle" :class='vMaskClass[getMaskStockIdx(maskInfo.properties.mask_child)]'>
                             <div>兒童口罩數量</div>
                             <div><span>{{maskInfo.properties.mask_child}}</span>片</div>
-                            <img src="./img/ic_stock_few@2x.png">
+                            <img :src="vMaskImg[getMaskStockIdx(maskInfo.properties.mask_child)]">
                         </div>                       
                     </div>
 
                     <div class="pharmacyInfo">
-                        <div class="name active">
+                        <div class="name" :class='vOpenClass[maskInfo.properties.iAvailable]'>
                             <span>{{maskInfo.properties.name}}</span>
                             <span>1.2 km</span>
-                            <span>即將休息</span>
+                            <span>{{vOPenStr[maskInfo.properties.iAvailable]}}</span>
                         </div>
                         <div class='detailStyle'>
                             <span>地址</span>
@@ -88,16 +88,33 @@
                     </div>
  
                 </div>
-                <pre>
-
             </section>
 
             <section v-else>
                 Loading....
             </section>
+
+            <section class='btnBlock' v-if='vShowMask.length > dataNumberNow'>
+                <div class="more" @click='getMoreData()'>
+                    <p>尚有{{vShowMask.length - dataNumberNow}}筆</p>
+                    <div class='btn01'>查看更多</div>
+                </div>
+                <a class='btn01 top' href='#mask'>TOP</a>
+            </section>
+
+            <section class="tips">
+                <ul>
+                    <li>部分藥局因採發放號碼牌方式，方便民眾購買口罩，<span class='noteImpor'>系統目前無法顯示已發送號碼牌數量</span>。</li>
+                    <li>口罩數量以藥局實際存量為主，<span class='noteImpor'>線上查詢之數量僅供參考</span>。</li>
+                    <li>若您的藥局有需要加註的公告事項，可以填寫<a href='https://pse.is/KH7DC'>表單</a></li>
+                </ul>
+            </section>
         </article>
 
-        <footer></footer>
+        <footer>
+            <div>防疫專線 1922 ｜ 口罩資訊 1911</div>
+            <div class="author">wenyo / PY Design</div>
+        </footer>
 
     </div>
     <script src="./all.js"></script>

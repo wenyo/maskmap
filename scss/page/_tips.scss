@@ -1,0 +1,14 @@
+.tips{
+    position: fixed;
+    bottom: 10px;
+    right: 16px;
+    width: 250px;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px $color-7;
+    background-color: $color-12;
+    li{
+        margin: 5px 15px;
+        list-style: circle;
+    }
+}

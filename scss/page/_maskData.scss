@@ -2,11 +2,12 @@
 .maskData{
     display: flex;
     flex-flow: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .pharmacy{
     width: 30vw;
+    margin: 0 1vw;
     background: $color-12;
     box-shadow: 0px 3px 10px $color-13;
     border-radius: 10px;
@@ -47,12 +48,16 @@
     }
 }
 
-.mask_adult{
+.full_mask{
     background: $color-2;
 }
 
-.mask_child{
+.few_mask{
     background: $color-master;
+}
+
+.none_mask{
+    background: $color-7;
 }
 
 .pharmacyInfo{
@@ -67,6 +72,8 @@
 
 .name{
     position: relative;
+    color: $color-4;
+
     span:nth-child(1){
         font-size: $fontsize-xl;
         font-weight: bold;
@@ -103,6 +110,9 @@
     }
     span{
         margin-right: 10px;
+        &:first-child{
+            color: $color-4;
+        }
     }
 }
 
@@ -119,6 +129,16 @@
 }
 
 .active{
+    span:nth-child(3){
+        color: $color-2;
+        background: $color-15;
+    }
+    &:before{
+        border-left: 4px solid $color-2;
+    }
+}
+
+.active_rest{
     span:nth-child(3){
         color: $color-master;
         background: $color-3;

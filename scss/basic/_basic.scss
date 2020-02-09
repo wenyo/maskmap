@@ -1,6 +1,8 @@
 #mask{
-    background-color: $color-11;
     min-height: 100vh;
+    max-width: 1460px;
+    margin: 0 auto;
+    background-color: $color-11;
     font-family: Regular Noto Sans CJK TC;
     font-size: $fontsize-m;
 }
@@ -16,6 +18,10 @@ header{
         height: auto;
         margin-right: 10px;
     }
+}
+article{
+    min-height: calc(100vh - 70px - 137px);
+    box-sizing: border-box;
 }
 
 section{

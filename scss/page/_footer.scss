@@ -1,0 +1,16 @@
+footer{
+    height: 105px;
+    background: $color-4;
+    color: $color-12;
+    font-size: $fontsize-xl;
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.author{
+    color: $color-5;
+    font-size: $fontsize-m;
+    margin-top: 8px;
+}

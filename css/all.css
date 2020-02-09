@@ -59,8 +59,10 @@ img {
 
 /*--css reset end--*/
 #mask {
-  background-color: #FAFAFA;
   min-height: 100vh;
+  max-width: 1460px;
+  margin: 0 auto;
+  background-color: #FAFAFA;
   font-family: Regular Noto Sans CJK TC;
   font-size: 12px;
 }
@@ -81,6 +83,12 @@ header img {
   width: 30px;
   height: auto;
   margin-right: 10px;
+}
+
+article {
+  min-height: calc(100vh - 70px - 137px);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 section {
@@ -124,7 +132,7 @@ section {
 }
 
 .note {
-  color: #566778;
+  color: #97a0a9;
   line-height: 16px;
 }
 
@@ -195,13 +203,14 @@ section {
   display: flex;
   -ms-flex-flow: wrap;
       flex-flow: wrap;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .pharmacy {
   width: 30vw;
+  margin: 0 1vw;
   background: #FFFFFF;
   -webkit-box-shadow: 0px 3px 10px #0000001A;
           box-shadow: 0px 3px 10px #0000001A;
@@ -260,12 +269,16 @@ section {
   right: -3px;
 }
 
-.mask_adult {
+.full_mask {
   background: #11787A;
 }
 
-.mask_child {
+.few_mask {
   background: #E67E22;
+}
+
+.none_mask {
+  background: #A9A9A9;
 }
 
 .pharmacyInfo {
@@ -277,7 +290,7 @@ section {
       -ms-flex-direction: column;
           flex-direction: column;
   margin-top: 10px;
-  color: #566778;
+  color: #97a0a9;
 }
 
 .pharmacyInfo > div {
@@ -286,6 +299,7 @@ section {
 
 .name {
   position: relative;
+  color: #34495E;
 }
 
 .name span:nth-child(1) {
@@ -336,6 +350,10 @@ section {
   margin-right: 10px;
 }
 
+.detailStyle span:first-child {
+  color: #34495E;
+}
+
 .bottomLine {
   text-decoration: underline;
   position: absolute;
@@ -351,11 +369,20 @@ section {
 }
 
 .active span:nth-child(3) {
+  color: #11787A;
+  background: #11787a48;
+}
+
+.active:before {
+  border-left: 4px solid #11787A;
+}
+
+.active_rest span:nth-child(3) {
   color: #E67E22;
   background: #FEF5E7;
 }
 
-.active:before {
+.active_rest:before {
   border-left: 4px solid #E67E22;
 }
 
@@ -366,5 +393,104 @@ section {
 
 .rest:before {
   border-left: 4px solid #A9A9A9;
+}
+
+.btnBlock {
+  position: relative;
+}
+
+.btn01 {
+  color: #FFFFFF;
+  background: #34495E;
+  -webkit-box-shadow: 0px 10px 20px #34495E4D;
+          box-shadow: 0px 10px 20px #34495E4D;
+  border-radius: 23px;
+  margin-top: 12px;
+  cursor: pointer;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.btn01:hover {
+  -webkit-box-shadow: 3px 3px 5px #34495E inset;
+          box-shadow: 3px 3px 5px #34495E inset;
+  background: #435b74;
+}
+
+.more {
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.more p {
+  font-size: 12px;
+  color: #34495E;
+}
+
+.more div {
+  font-size: 16px;
+  padding: 11px 40px;
+}
+
+.top {
+  font-size: 12px;
+  padding: 18px 12px;
+  position: absolute;
+  top: 0;
+  right: 16px;
+  text-decoration: none;
+}
+
+footer {
+  height: 105px;
+  background: #34495E;
+  color: #FFFFFF;
+  font-size: 16px;
+  padding: 16px 24px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.author {
+  color: #97a0a9;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.tips {
+  position: fixed;
+  bottom: 10px;
+  right: 16px;
+  width: 250px;
+  padding: 20px 30px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 10px #A9A9A9;
+          box-shadow: 0 0 10px #A9A9A9;
+  background-color: #FFFFFF;
+}
+
+.tips li {
+  margin: 5px 15px;
+  list-style: circle;
 }
 /*# sourceMappingURL=all.css.map */
