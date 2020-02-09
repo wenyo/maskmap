@@ -126,14 +126,6 @@ new Vue({
         getMoreData(){
             this.dataNumberNow += this.dataNumber;
         },
-        // 回到頂部
-        goTop(){
-            var elmnt = document.getElementById("mask");
-            var x = elmnt.scrollHeight;
-            var y = elmnt.scrollTop;
-            elmnt.scrollHeight = 0
-            console.log(document.body.scrollTop)
-        }
     },watch: {
         // 監聽搜尋
         searchCity(){
