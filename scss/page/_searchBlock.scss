@@ -8,6 +8,9 @@
         top: 12px;
         right: 10px;
     }
+    @include w400{
+        display: block;
+    }
 }
 
 #search{
@@ -23,4 +26,7 @@
     box-sizing: border-box;
     font-size: $fontsize-xl;
     color: $color-4;
+    @include w400{
+        width: 100%;
+    }
 }

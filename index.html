@@ -6,11 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>口罩即時查</title>
     <link rel="stylesheet" href="./css/min/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
 </head>
 <body>
-    <div id="mask">
+    <div id="mask" v-cloak>
         <header>
             <img src="./img/logo.png" alt="">
             <h1>口罩即時查</h1>
@@ -64,12 +65,13 @@
                     <div class="pharmacyInfo">
                         <div class="name" :class='vOpenClass[maskInfo.properties.iAvailable]'>
                             <span>{{maskInfo.properties.name}}</span>
+                            <a :href='maskInfo.properties.website' v-if='maskInfo.properties.website'><i class="fas fa-link"></i></a>
                             <span>1.2 km</span>
                             <span>{{vOPenStr[maskInfo.properties.iAvailable]}}</span>
                         </div>
                         <div class='detailStyle'>
                             <span>地址</span>
-                            <span class="wrap">{{maskInfo.properties.address}}</span>
+                            <span class="address">{{maskInfo.properties.address}}</span>
                             <span class='bottomLine'>於地圖查看</span>
                         </div>
                         <div class='detailStyle'>
@@ -91,7 +93,8 @@
             </section>
 
             <section v-else>
-                Loading....
+                <p v-if='vLoading'>Loading....</p>
+                <p v-else>No Result</p>
             </section>
 
             <section class='btnBlock' v-if='vShowMask.length > dataNumberNow'>
@@ -103,11 +106,17 @@
             </section>
 
             <section class="tips">
-                <ul>
+                <span class="tipsBtn" @click='bTipShow = !bTipShow'>
+                    <i v-if='bTipShow' class="fas fa-times-circle"></i>
+                    <i v-else class="fas fa-exclamation-circle"></i>
+                </span>
+
+                <ul v-if='bTipShow'>
                     <li>部分藥局因採發放號碼牌方式，方便民眾購買口罩，<span class='noteImpor'>系統目前無法顯示已發送號碼牌數量</span>。</li>
                     <li>口罩數量以藥局實際存量為主，<span class='noteImpor'>線上查詢之數量僅供參考</span>。</li>
                     <li>若您的藥局有需要加註的公告事項，可以填寫<a href='https://pse.is/KH7DC'>表單</a></li>
                 </ul>
+
             </section>
         </article>
 

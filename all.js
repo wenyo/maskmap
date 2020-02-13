@@ -2,10 +2,8 @@ new Vue({
     el: '#mask',
     data:{
         nowHour: new Date().getHours(), // 現在幾點
-        // nowHour: 16, // 現在幾點
+        // nowHour: 14, // 現在幾點
         iWeeklyDay: new Date().getDay(), // 得到星期幾
-        vWeek: "星期日,星期一,星期二,星期三,星期四,星期五,星期六".split(","),
-        vOpen: "上午看診,下午看診,晚上看診".split(","),
         vHours: [8,12,17,22], // 上午 下午 晚上分界
         iHour: -1, //vHours idx
         vOpenClass: ['active', 'active_rest', 'rest'],
@@ -16,16 +14,20 @@ new Vue({
         sUpdateTime: '', // 最新更新時間
         vAllMaskData: [],
         vShowMask: [],
+        vLoading: false,
         dataNumberNow: 6,
         dataNumber: 6,
         vMaskImg: ['./img/ic_stock_full@2x.png', './img/ic_stock_few@2x.png', './img/ic_stock_none@2x.png'],
         vMaskClass: ['full_mask', 'few_mask', 'none_mask'],
-        searchCity: ''
+        searchCity: '',
+        bTipShow: true
     },
     mounted() {
         this.getIHour();
         this.getWeeklyDay();
         this.getMaskData();
+        console.log(this.iHour)
+        console.log(this.iWeeklyDay)
         setTimeout(function(){
             this.getMaskData();
         }.bind(this), 600000);
@@ -33,13 +35,16 @@ new Vue({
     methods: {
         // 得到口罩資料
         getMaskData(){
+            this.vLoading = true;
             this.vShowMask = [];
             axios
             .get('https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json', {})
             .then( response => {
                 this.vAllMaskData = response.data.features;
-                this.sUpdateTime = this.vAllMaskData[0].properties.updated.substring(11);
+                this.sUpdateTime = this.vAllMaskData[1].properties.updated.substring(11);
                 this.getCity();
+                this.vLoading = false;
+                console.log(this.vAllMaskData);
             })
         },
         // 得到購買者身份
@@ -57,47 +62,20 @@ new Vue({
             let idx = (maskNumber > 100) ? 0 : (maskNumber !== 0 ? 1 : 2);
             return idx;
         },
-        // 得到營業時間
+        // 得到營業時間 "N"=開診、"Y"=休診
         getOpenTime(sOpenTime){
-            let vOPenTime = sOpenTime.split("、");
-            let vTodayOpen = [];
-            let vOpenTime = [];
-            let sNowOpen = this.vWeek[this.iWeeklyDay];
-
-            // 得到當日中文營業時間
-            for (const sOpen of vOPenTime) {
-                if(sOpen.indexOf(sNowOpen) > -1){
-                    vTodayOpen.push(sOpen);
-                }
+            // rest
+            if(this.iHour == -1){
+                return 2;
             }
-
-            // 得到當日數字營業時間
-            for (let key in vTodayOpen) {
-                key = parseInt(key);
-                if(vTodayOpen[key].indexOf(this.vOpen[key]) > -1){
-                    let temp = [this.vHours[key], this.vHours[key+1]];
-                    vOpenTime.push(temp);
-                }else{
-                    vOpenTime.push(null);
-                }
+            let iOpenTimeIdx = (this.iWeeklyDay - 1) + this.iHour * 7;
+            let bOpenTime_now = sOpenTime[iOpenTimeIdx];
+            let bOpenTime_nextH = sOpenTime[iOpenTimeIdx+1];
+            if(bOpenTime_now == 'Y'){ // rest
+                return 2;
+            }else{ // now open , to tell next hour
+                return bOpenTime_nextH == 'N' ? 0 : 1;
             }
-
-            let i = -1;
-            if(!vOpenTime[this.iHour]){
-                i = 2
-            }else{
-                if(!vOpenTime[this.iHour+1]){
-                    if(vOpenTime[this.iHour][1] - this.nowHour < 2 ){
-                        i = 1;
-                    }else{
-                        i = 0;
-                    }
-                }else if(vOpenTime[this.iHour+1]){
-                    i = 0;
-                }
-            }
-
-            return i;
         },
         // 得到 iHour
         getIHour(){
@@ -111,8 +89,8 @@ new Vue({
         // 過濾地區
         getCity(){
             for (const maskInfo of this.vAllMaskData) {
-                let available = maskInfo.properties.available;
-                maskInfo.properties.iAvailable = this.getOpenTime(available);
+                let service_periods = maskInfo.properties.service_periods;
+                maskInfo.properties.iAvailable = this.getOpenTime(service_periods);
 
                 let address = maskInfo.properties.address;
                 if(this.searchCity == ''){ 

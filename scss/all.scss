@@ -10,3 +10,7 @@
 @import './page/btn';
 @import './page/footer';
 @import './page/tips';
+
+[v-cloak] {
+    display: none;
+}

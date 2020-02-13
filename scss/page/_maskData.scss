@@ -6,14 +6,21 @@
 }
 
 .pharmacy{
-    width: 30vw;
-    margin: 0 1vw;
+    width: 31%;
+    margin: 1%;
     background: $color-12;
     box-shadow: 0px 3px 10px $color-13;
     border-radius: 10px;
     padding: 15px;
     box-sizing: border-box;
-    margin-bottom: 20px;
+    @include w920{
+        width: 48%;
+        margin: 1%;
+    }
+    @include w600{
+        width: 98%;
+        margin: 1%;
+    }
 }
 .maskNumber{
     display: flex;
@@ -36,7 +43,7 @@
         line-height: $line-h-m;
     }
     span{
-        font-size: $fontsize-xxl;
+        font-size: $fontsize-xxxxl;
         font-weight: bold;
     }
     img{
@@ -103,7 +110,8 @@
     justify-content: flex-start;
     align-items: flex-start;
     position: relative;
-    .wrap{
+    line-height: 1.3;
+    .address{
         word-break: break-all;
         max-width: 50%;
         display: inline-block;
@@ -112,6 +120,7 @@
         margin-right: 10px;
         &:first-child{
             color: $color-4;
+            white-space:nowrap;
         }
     }
 }

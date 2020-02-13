@@ -1,14 +1,34 @@
 .tips{
     position: fixed;
-    bottom: 10px;
+    top: 40px;
     right: 16px;
-    width: 250px;
-    padding: 20px 30px;
+    max-width: 250px;
+    padding: 10px;
     border-radius: 10px;
     box-shadow: 0 0 10px $color-7;
     background-color: $color-12;
     li{
-        margin: 5px 15px;
+        margin: 5px 20px;
         list-style: circle;
+        line-height: 1.1em;
     }
+    a{
+        color: $color-master;
+    }
+}
+
+.tipsBtn{
+    @include pointer;
+    @include tran-3;
+    float: right;
+    font-size: $fontsize-xl;
+    &:hover{
+        color: $color-master;
+        font-size: $fontsize-xxl;
+    }
+}
+
+.noteImpor{
+    font-weight: bolder;
+    background-image: linear-gradient(to top, $color-17 50%, $color-18 50.1%);
 }
