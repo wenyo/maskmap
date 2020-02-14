@@ -126,7 +126,6 @@
 }
 
 .bottomLine{
-    text-decoration: underline;
     position: absolute;
     right: 0;
     top: 0;
@@ -134,6 +133,9 @@
     @include tran-3;
     &:hover{
         background: $color-14;
+    }
+    a{
+        color: $color-5;
     }
 }
 

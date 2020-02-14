@@ -382,7 +382,6 @@ section {
 }
 
 .bottomLine {
-  text-decoration: underline;
   position: absolute;
   right: 0;
   top: 0;
@@ -393,6 +392,10 @@ section {
 
 .bottomLine:hover {
   background: #a9a9a91a;
+}
+
+.bottomLine a {
+  color: #97a0a9;
 }
 
 .active span:nth-child(3) {

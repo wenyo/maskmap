@@ -26,8 +26,7 @@ new Vue({
         this.getIHour();
         this.getWeeklyDay();
         this.getMaskData();
-        console.log(this.iHour)
-        console.log(this.iWeeklyDay)
+        this.getLocation();
         setTimeout(function(){
             this.getMaskData();
         }.bind(this), 600000);
@@ -104,6 +103,22 @@ new Vue({
         getMoreData(){
             this.dataNumberNow += this.dataNumber;
         },
+        // 得到使用者所在位置
+        getLocation(){
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(this.showLocation);
+              } else {
+                console.log('111')
+              }
+        },
+        showLocation(a){
+            console.log(a)
+        },
+        getStoreLocation(vLocation){
+            let longitude = vLocation.coordinates[0];
+            let latitude = vLocation.coordinates[1];
+            return `http://maps.google.com/maps?q=${latitude},${longitude}`;
+        }
     },watch: {
         // 監聽搜尋
         searchCity(){
