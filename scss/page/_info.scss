@@ -8,6 +8,25 @@
         width: 24px;
         height: 24px;
     }
+    .illustratingIcon{
+        @include pointer;
+    }
+    .illustrating{
+        position: fixed;
+        width: 50vw;
+        height: auto;
+        top: 10%;
+        right: 25vw;
+        z-index: 10;
+    }
+}
+.closeRule{
+    color: #fff;
+    position: fixed;
+    z-index: 10;
+    font-size: $fontsize-xxxl;
+    top: 30px;
+    right: 30px;
 }
 
 .date{

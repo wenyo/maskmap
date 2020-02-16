@@ -28,3 +28,19 @@ section{
     padding: 5px 16px;
     margin: 1vh 0;
 }
+
+.back{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.grayBack{
+    background-color: $color-8;
+}
+
+.blueBack{
+    background-color: $color-4;
+}

@@ -96,6 +96,22 @@ section {
   margin: 1vh 0;
 }
 
+.back {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.grayBack {
+  background-color: #34495E4D;
+}
+
+.blueBack {
+  background-color: #34495E;
+}
+
 .dateInfo {
   width: 160px;
   display: -webkit-inline-box;
@@ -113,6 +129,28 @@ section {
 .dateInfo img {
   width: 24px;
   height: 24px;
+}
+
+.dateInfo .illustratingIcon {
+  cursor: pointer;
+}
+
+.dateInfo .illustrating {
+  position: fixed;
+  width: 50vw;
+  height: auto;
+  top: 10%;
+  right: 25vw;
+  z-index: 10;
+}
+
+.closeRule {
+  color: #fff;
+  position: fixed;
+  z-index: 10;
+  font-size: 29px;
+  top: 30px;
+  right: 30px;
 }
 
 .date {
@@ -517,7 +555,7 @@ footer {
   z-index: 10;
   top: 140px;
   right: 16px;
-  max-width: 550px;
+  max-width: 450px;
   padding: 10px;
   border-radius: 10px;
   -webkit-box-shadow: 0 0 10px #A9A9A9;
@@ -562,15 +600,6 @@ footer {
   font-weight: bolder;
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(50%, #ffd95c), color-stop(50.1%, rgba(0, 0, 0, 0)));
   background-image: linear-gradient(to top, #ffd95c 50%, rgba(0, 0, 0, 0) 50.1%);
-}
-
-.grayBack {
-  background-color: #34495E4D;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 
 [v-cloak] {

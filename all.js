@@ -21,7 +21,8 @@ new Vue({
         vMaskClass: ['full_mask', 'few_mask', 'none_mask'],
         searchCity: '',
         searchStore: '',
-        bTipShow: true
+        bTipShow: true,
+        bRule: false
     },
     mounted() {
         this.getIHour();
@@ -132,6 +133,7 @@ new Vue({
             setTimeout(function(){
                 this.vShowMask = [];
                 this.getCity();
+                this.getStore();
             }.bind(this), 2000)
         },
         // 監聽搜尋店家
@@ -139,6 +141,8 @@ new Vue({
             setTimeout(function(){
                 console.log(this.searchStore)
                 if(this.searchStore){
+                    this.vShowMask = [];
+                    this.getCity();
                     this.getStore();
                 }else{
                     this.getCity();

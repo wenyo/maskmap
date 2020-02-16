@@ -3,7 +3,7 @@
     z-index: 10;
     top: 140px;
     right: 16px;
-    max-width: 550px;
+    max-width: 450px;
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 0 10px $color-7;
@@ -39,13 +39,4 @@
 .noteImpor{
     font-weight: bolder;
     background-image: linear-gradient(to top, $color-17 50%, $color-18 50.1%);
-}
-
-.grayBack{
-    background-color: $color-8;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
 }

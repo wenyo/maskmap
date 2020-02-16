@@ -44,7 +44,15 @@
                 <div class="dateInfo">
                     <span class='date'>{{vDate[iDate]}}</span>
                     <span>購買日</span>
-                    <img src="./img/ic_help@2x.png" />
+                    <img class='illustratingIcon' 
+                         @click='bRule = true'
+                         src="./img/ic_help@2x.png" />
+                    <i   v-if='bRule' 
+                         class="fas fa-times closeRule"
+                         @click = 'bRule = false'></i>
+                    <img class='illustrating' 
+                         v-if='bRule'
+                         src="./img/upload_d66720899e86826c9ae2e999dbec76fe.jpeg" alt="">
                 </div>
 
                 <div class="detail" v-if='vShowMask.length'>
@@ -119,7 +127,7 @@
                 <a class='btn01 top' href='#mask'>TOP</a>
             </section>
 
-            <section class="tips">
+            <section class="tips" v-if='!bRule'>
                 <span class="tipsBtn" @click='bTipShow = !bTipShow'>
                     <i v-if='bTipShow' class="fas fa-times-circle"></i>
                     <i v-else class="fas fa-exclamation-circle"></i>
@@ -132,8 +140,9 @@
                 </ul>
 
             </section>
-            <div class="grayBack" v-if='bTipShow' @click= 'bTipShow = false'></div>
-
+            <div  class="back" 
+                  :class='bTipShow || bRule ? ( bTipShow ? "grayBack" : "blueBack" ) : "" '
+                  v-if='bTipShow || bRule' @click= 'bTipShow = false'></div>
         </article>
 
         <footer>
