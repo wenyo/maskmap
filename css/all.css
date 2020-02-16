@@ -209,12 +209,15 @@ section {
 .searchInput {
   display: inline-block;
   position: relative;
-  margin: 2px img, i;
-  margin-width: 24px;
-  margin-height: 24px;
-  margin-position: absolute;
-  margin-top: 13px;
-  margin-right: 10px;
+  margin: 2px;
+}
+
+.searchInput img, .searchInput i {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 13px;
+  right: 10px;
 }
 
 .searchInput i {
