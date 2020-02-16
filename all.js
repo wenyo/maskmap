@@ -115,7 +115,7 @@ new Vue({
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(this.showLocation);
               } else {
-                console.log('111')
+                console.log('error');
               }
         },
         showLocation(a){

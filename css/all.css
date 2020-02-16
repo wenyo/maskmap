@@ -132,7 +132,15 @@ section {
 }
 
 .dateInfo .illustratingIcon {
+  border-radius: 25px;
+  -webkit-transition: all .3s;
+  transition: all .3s;
   cursor: pointer;
+}
+
+.dateInfo .illustratingIcon:hover {
+  -webkit-box-shadow: 0 0 5px #34495E;
+          box-shadow: 0 0 5px #34495E;
 }
 
 .dateInfo .illustrating {
@@ -145,12 +153,20 @@ section {
 }
 
 .closeRule {
-  color: #fff;
+  color: #FFFFFF;
   position: fixed;
   z-index: 10;
   font-size: 29px;
   top: 30px;
   right: 30px;
+  cursor: pointer;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.closeRule:hover {
+  color: #E67E22;
+  text-shadow: 0 0 5px #70777C;
 }
 
 .date {
@@ -548,6 +564,18 @@ footer {
   color: #97a0a9;
   font-size: 12px;
   margin-top: 8px;
+}
+
+.author a {
+  color: #97a0a9;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.author a:hover {
+  color: #FFFFFF;
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(50%, #97a0a9), color-stop(50.1%, rgba(0, 0, 0, 0)));
+  background-image: linear-gradient(to top, #97a0a9 50%, rgba(0, 0, 0, 0) 50.1%);
 }
 
 .tips {

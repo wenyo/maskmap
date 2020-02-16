@@ -13,4 +13,13 @@ footer{
     color: $color-5;
     font-size: $fontsize-m;
     margin-top: 8px;
+    a{
+        color: $color-5;
+        text-decoration: none;
+        @include pointer;
+        &:hover{
+            color: $color-12;
+            background-image: linear-gradient(to top, $color-5 50%, $color-18 50.1%);
+        }
+    }
 }

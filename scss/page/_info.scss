@@ -9,7 +9,12 @@
         height: 24px;
     }
     .illustratingIcon{
+        border-radius: 25px;
+        @include tran-3;
         @include pointer;
+        &:hover{
+            box-shadow: 0 0 5px $color-4;
+        }
     }
     .illustrating{
         position: fixed;
@@ -21,12 +26,18 @@
     }
 }
 .closeRule{
-    color: #fff;
+    color: $color-12;
     position: fixed;
     z-index: 10;
     font-size: $fontsize-xxxl;
     top: 30px;
     right: 30px;
+    @include pointer;
+    @include tran-3;
+    &:hover{
+        color: $color-master;
+        text-shadow: 0 0 5px $color-6;
+    }
 }
 
 .date{
