@@ -209,15 +209,12 @@ section {
 .searchInput {
   display: inline-block;
   position: relative;
-  margin: 10px 0;
-}
-
-.searchInput img, .searchInput i {
-  width: 24px;
-  height: 24px;
-  position: absolute;
-  top: 13px;
-  right: 10px;
+  margin: 2px img, i;
+  margin-width: 24px;
+  margin-height: 24px;
+  margin-position: absolute;
+  margin-top: 13px;
+  margin-right: 10px;
 }
 
 .searchInput i {
@@ -572,6 +569,13 @@ footer {
 .tips a {
   color: #E67E22;
   font-weight: bold;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.tips a:hover {
+  background: #E67E22;
+  color: #FFFFFF;
 }
 
 @media (max-width: 768px) {

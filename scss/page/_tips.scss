@@ -16,6 +16,11 @@
     a{
         color: $color-master;
         font-weight: bold;
+        @include tran-3;
+        &:hover{
+            background: $color-master;
+            color: $color-12;
+        }
     }
     @include w768{
         max-width: 80%;

@@ -45,7 +45,6 @@ new Vue({
                 this.sUpdateTime = this.vAllMaskData[1].properties.updated.substring(11);
                 this.getCity();
                 this.vLoading = false;
-                console.log(this.vAllMaskData);
             })
         },
         // 得到購買者身份
