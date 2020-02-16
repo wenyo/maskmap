@@ -1,19 +1,24 @@
 .searchInput{
     display: inline-block;
     position: relative;
-    img{
+    margin: 10px 0;
+    img, i{
         width: 24px;
         height: 24px;
         position: absolute;
-        top: 12px;
+        top: 13px;
         right: 10px;
+    }
+    i{
+        font-size:$fontsize-xxl;
+        color: $color-4;
     }
     @include w400{
         display: block;
     }
 }
 
-#search{
+.search{
     top: 81px;
     left: 16px;
     width: 343px;

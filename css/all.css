@@ -171,14 +171,20 @@ section {
 .searchInput {
   display: inline-block;
   position: relative;
+  margin: 10px 0;
 }
 
-.searchInput img {
+.searchInput img, .searchInput i {
   width: 24px;
   height: 24px;
   position: absolute;
-  top: 12px;
+  top: 13px;
   right: 10px;
+}
+
+.searchInput i {
+  font-size: 20px;
+  color: #34495E;
 }
 
 @media (max-width: 400px) {
@@ -187,7 +193,7 @@ section {
   }
 }
 
-#search {
+.search {
   top: 81px;
   left: 16px;
   width: 343px;
@@ -204,7 +210,7 @@ section {
 }
 
 @media (max-width: 400px) {
-  #search {
+  .search {
     width: 100%;
   }
 }
@@ -508,9 +514,10 @@ footer {
 
 .tips {
   position: fixed;
-  top: 40px;
+  z-index: 10;
+  top: 140px;
   right: 16px;
-  max-width: 250px;
+  max-width: 550px;
   padding: 10px;
   border-radius: 10px;
   -webkit-box-shadow: 0 0 10px #A9A9A9;
@@ -526,6 +533,15 @@ footer {
 
 .tips a {
   color: #E67E22;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .tips {
+    max-width: 80%;
+    right: calc( 10% - 10px);
+    top: 200px;
+  }
 }
 
 .tipsBtn {
@@ -534,6 +550,7 @@ footer {
   transition: all .3s;
   float: right;
   font-size: 16px;
+  margin: 5px;
 }
 
 .tipsBtn:hover {
@@ -545,6 +562,15 @@ footer {
   font-weight: bolder;
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(50%, #ffd95c), color-stop(50.1%, rgba(0, 0, 0, 0)));
   background-image: linear-gradient(to top, #ffd95c 50%, rgba(0, 0, 0, 0) 50.1%);
+}
+
+.grayBack {
+  background-color: #34495E4D;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 [v-cloak] {

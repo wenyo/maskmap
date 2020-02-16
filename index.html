@@ -31,7 +31,11 @@
 
             <section class="searchBlock">
                 <div class="searchInput">
-                    <input type="text" placeholder="請輸入想查詢位置" id="search" v-model='searchCity'>
+                    <input type="text" placeholder="請輸入店家名稱" class="search" v-model='searchStore'>
+                    <i class="fas fa-clinic-medical"></i>
+                </div>
+                <div class="searchInput">
+                    <input type="text" placeholder="請輸入想查詢位置" class="search" v-model='searchCity'>
                     <img src="./img/ic_location.png">
                 </div>
             </section>
@@ -128,6 +132,8 @@
                 </ul>
 
             </section>
+            <div class="grayBack" v-if='bTipShow' @click= 'bTipShow = false'></div>
+
         </article>
 
         <footer>

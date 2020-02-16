@@ -20,13 +20,14 @@ new Vue({
         vMaskImg: ['./img/ic_stock_full@2x.png', './img/ic_stock_few@2x.png', './img/ic_stock_none@2x.png'],
         vMaskClass: ['full_mask', 'few_mask', 'none_mask'],
         searchCity: '',
+        searchStore: '',
         bTipShow: true
     },
     mounted() {
         this.getIHour();
         this.getWeeklyDay();
         this.getMaskData();
-        this.getLocation();
+        // this.getLocation();
         setTimeout(function(){
             this.getMaskData();
         }.bind(this), 600000);
@@ -87,6 +88,7 @@ new Vue({
         },
         // 過濾地區
         getCity(){
+            this.vShowMask = [];
             for (const maskInfo of this.vAllMaskData) {
                 let service_periods = maskInfo.properties.service_periods;
                 maskInfo.properties.iAvailable = this.getOpenTime(service_periods);
@@ -98,6 +100,11 @@ new Vue({
                     this.vShowMask.push(maskInfo);
                 }
             }
+        },
+        getStore(){
+            this.vShowMask = this.vShowMask.filter( vStore => {
+                return vStore.properties.name.indexOf(this.searchStore) > -1;
+            })
         },
         // 查看更多
         getMoreData(){
@@ -120,12 +127,23 @@ new Vue({
             return `http://maps.google.com/maps?q=${latitude},${longitude}`;
         }
     },watch: {
-        // 監聽搜尋
+        // 監聽搜尋地址
         searchCity(){
             setTimeout(function(){
                 this.vShowMask = [];
                 this.getCity();
             }.bind(this), 2000)
         },
+        // 監聽搜尋店家
+        searchStore(){
+            setTimeout(function(){
+                console.log(this.searchStore)
+                if(this.searchStore){
+                    this.getStore();
+                }else{
+                    this.getCity();
+                }
+            }.bind(this), 2000)
+        }
     },
 })
