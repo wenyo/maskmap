@@ -19,7 +19,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
 </head>
 <body>
-    <div id="mask" v-cloak>
+    <div    id="mask" 
+            :class='bTipShow ? "noScroll" : "" '
+            @click = 'bFocus1 = false; bFocus2 = false'
+            v-cloak>
         <header>
             <img src="./img/logo.png" alt="">
             <h1>口罩即時查</h1>
@@ -31,12 +34,43 @@
 
             <section class="searchBlock">
                 <div class="searchInput">
-                    <input type="text" placeholder="請輸入店家名稱" class="search" v-model='searchStore'>
-                    <i class="fas fa-clinic-medical"></i>
+                    <input  type="text" 
+                            placeholder="請輸入店家名稱" 
+                            class="search" :class=' bFocus1 ? "active" : "" ' 
+                            v-model='searchStore'
+                            @click.stop ='bFocus1 = true; bFocus2 = false'>
+                    <i class="fas fa-hospital"></i>
+                    <ul class='searchBar' v-if="bFocus1">
+                        <li v-for='store in vHistory.searchStore' v-if='vHistory.searchStore.length > 0' @click='searchStore = store'>
+                            <i class="fas fa-clinic-medical"></i>
+                            <span>{{store}}</span>
+                        </li>
+                        <li class='clearData' @click.stop='bFocus1 = true;clearLocalStorage("searchStore")'>
+                            <i class="fas fa-trash-alt"></i>
+                            <span>清除紀錄</span>
+                        </li>
+                    </ul>
                 </div>
                 <div class="searchInput">
-                    <input type="text" placeholder="請輸入想查詢位置" class="search" v-model='searchCity'>
+                    <input  type="text" placeholder="請輸入想查詢位置" 
+                            class="search" :class=' bFocus2 ? "active" : "" ' 
+                            v-model='searchCity'
+                            @click.stop ='bFocus2 = true; bFocus1 = false'>
                     <img src="./img/ic_location.png">
+                    <ul class='searchBar' v-if="bFocus2">
+                        <li @click='getNearbyStore(); searchCity = sMyLoction'>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>{{sMyLoction}}</span>
+                        </li>
+                        <li v-for='city in vHistory.searchCity' v-if='vHistory.searchCity.length > 0' @click='searchCity = city'>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>{{city}}</span>
+                        </li>
+                        <li class='clearData' @click.stop='bFocus2 = true; clearLocalStorage("searchCity")'>
+                            <i class="fas fa-trash-alt"></i>
+                            <span>清除紀錄</span>
+                        </li>
+                    </ul>
                 </div>
             </section>
 
@@ -57,7 +91,7 @@
 
                 <div class="detail" v-if='vShowMask.length'>
                     <div class="note">
-                        <p>距離方圓<span>5公里</span>以內的供應商</p>
+                        <p>距離方圓<span>{{iDistance}}公里</span>以內的供應商</p>
                         <p>資訊更新時間<span>{{sUpdateTime}}</span></p>
                     </div>
                     <div class="reLoading" @click='getMaskData()'>
@@ -86,7 +120,7 @@
                         <div class="name" :class='vOpenClass[maskInfo.properties.iAvailable]'>
                             <span>{{maskInfo.properties.name}}</span>
                             <a :href='maskInfo.properties.website' v-if='maskInfo.properties.website'><i class="fas fa-link"></i></a>
-                            <span>1.2 km</span>
+                            <span>{{(maskInfo.geometry.coordinates[2].toFixed(2))}} km</span>
                             <span>{{vOPenStr[maskInfo.properties.iAvailable]}}</span>
                         </div>
                         <div class='detailStyle'>
@@ -127,7 +161,7 @@
                 <a class='btn01 top' href='#mask'>TOP</a>
             </section>
 
-            <section class="tips" v-if='!bRule'>
+            <section class="tips" :class='!bTipShow ? "smalltips" :"" ' v-if='!bRule'>
                 <span class="tipsBtn" @click='bTipShow = !bTipShow'>
                     <i v-if='bTipShow' class="fas fa-times-circle"></i>
                     <i v-else class="fas fa-exclamation-circle"></i>

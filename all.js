@@ -22,13 +22,20 @@ new Vue({
         searchCity: '',
         searchStore: '',
         bTipShow: true,
-        bRule: false
+        bRule: false,
+
+        bGetLocation: false,
+        iDistance: 5,
+        vHistory: [],
+        bFocus1: false,
+        bFocus2: false,
+        sMyLoction: '我的位置'
     },
     mounted() {
         this.getIHour();
         this.getWeeklyDay();
+        this.getLocalStorage();
         this.getMaskData();
-        // this.getLocation();
         setTimeout(function(){
             this.getMaskData();
         }.bind(this), 600000);
@@ -38,12 +45,13 @@ new Vue({
         getMaskData(){
             this.vLoading = true;
             this.vShowMask = [];
+            this.resetDataNum();
             axios
             .get('https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json', {})
             .then( response => {
                 this.vAllMaskData = response.data.features;
                 this.sUpdateTime = this.vAllMaskData[1].properties.updated.substring(11);
-                this.getCity();
+                this.getLocation();
                 this.vLoading = false;
             })
         },
@@ -89,6 +97,7 @@ new Vue({
         // 過濾地區
         getCity(){
             this.vShowMask = [];
+            this.resetDataNum();
             for (const maskInfo of this.vAllMaskData) {
                 let service_periods = maskInfo.properties.service_periods;
                 maskInfo.properties.iAvailable = this.getOpenTime(service_periods);
@@ -101,10 +110,15 @@ new Vue({
                 }
             }
         },
+        // 過濾店家名稱
         getStore(){
             this.vShowMask = this.vShowMask.filter( vStore => {
                 return vStore.properties.name.indexOf(this.searchStore) > -1;
             })
+        },
+        // reset 數量
+        resetDataNum(){
+            this.dataNumberNow = this.dataNumber;
         },
         // 查看更多
         getMoreData(){
@@ -113,40 +127,118 @@ new Vue({
         // 得到使用者所在位置
         getLocation(){
             if (navigator.geolocation) {
+                this.bGetLocation = true;
+                this.searchCity = this.sMyLoction;
                 navigator.geolocation.getCurrentPosition(this.showLocation);
               } else {
-                console.log('error');
+                this.bGetLocation = false;
+                console.log('google location error');
               }
         },
-        showLocation(a){
-            console.log(a)
+        showLocation(vLocation){
+            this.calDistance(vLocation);
+            this.filterStore();
+            this.sortStore();
         },
+        // 顯示距離內的藥局
+        filterStore(){
+            this.vShowMask = [];
+            this.resetDataNum();
+            this.vShowMask = this.vAllMaskData.filter( vStore => {
+                return vStore.geometry.coordinates[2]  <= this.iDistance;
+            })
+        },
+        // 計算距離
+        calDistance(vLocation){
+            let userLongitude = vLocation.coords.longitude;
+            let userLatitude= vLocation.coords.latitude;
+            this.vAllMaskData.forEach( vStore => {
+                let storeLongitude = vStore.geometry.coordinates[0];
+                let storeLatitude = vStore.geometry.coordinates[1];
+                let a = storeLongitude - userLongitude;
+                let b = storeLatitude - userLatitude;
+                let distance = Math.sqrt(a*a + b*b) * 111;
+                vStore.geometry.coordinates[2] = distance;
+            });
+        },
+        // 由近到遠排序
+        sortStore(){
+            this.vShowMask.sort(function(x, y){
+                return x.geometry.coordinates[2] -y.geometry.coordinates[2]
+            })
+        },
+        // 點擊以我的位置查詢
+        getNearbyStore(){
+            if(this.bGetLocation){
+                this.filterStore();
+                this.sortStore();
+            }else{
+                this.getLocalStorage();
+            }
+        },
+        // 地圖 url
         getStoreLocation(vLocation){
             let longitude = vLocation.coordinates[0];
             let latitude = vLocation.coordinates[1];
             return `http://maps.google.com/maps?q=${latitude},${longitude}`;
+        },
+        // 增加搜尋歷史紀錄
+        addToLocalStorage(key, search){
+            if(search == '' || search == this.sMyLoction) return;
+            this.vHistory[key].push(search);
+            this.vHistory[key] = Array.from(new Set(this.vHistory[key]));
+            this.saveToLocalStorage();
+        },
+        // 清除搜尋紀錄
+        clearLocalStorage(key){
+            this.vHistory[key] = [];
+            this.saveToLocalStorage();
+        },
+        // 儲存 localStorage
+        saveToLocalStorage(){
+            sMaskData = JSON.stringify(this.vHistory);
+            localStorage.setItem('maskData', sMaskData)
+        },
+        // 將 localStorage 的記錄拿出來
+        getLocalStorage(){
+            if(localStorage.getItem('maskData') == null){
+                let sMaskData = {
+                                    'searchStore': [],
+                                    'searchCity': []
+                                };
+                sMaskData = JSON.stringify(sMaskData);
+                localStorage.setItem('maskData', sMaskData)
+            }
+            this.vHistory = JSON.parse(localStorage.getItem('maskData'));
+        },
+        //  判斷位置欄位
+        getDataFromLoction(){
+            if(this.searchCity == this.sMyLoction){
+                this.getNearbyStore()
+            }else{
+                this.getCity();
+            }
         }
     },watch: {
         // 監聽搜尋地址
         searchCity(){
             setTimeout(function(){
                 this.vShowMask = [];
-                this.getCity();
+                this.resetDataNum();
+                this.getDataFromLoction();
                 this.getStore();
-            }.bind(this), 2000)
+                this.addToLocalStorage('searchCity', this.searchCity);
+            }.bind(this), 1500)
         },
         // 監聽搜尋店家
         searchStore(){
             setTimeout(function(){
-                console.log(this.searchStore)
-                if(this.searchStore){
-                    this.vShowMask = [];
-                    this.getCity();
-                    this.getStore();
-                }else{
-                    this.getCity();
-                }
-            }.bind(this), 2000)
+                this.vShowMask = [];
+                this.resetDataNum();
+                this.getDataFromLoction();
+                this.getStore();
+                this.addToLocalStorage('searchStore', this.searchStore);
+            }.bind(this), 1500)
         }
     },
 })

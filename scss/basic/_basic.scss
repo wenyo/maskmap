@@ -6,6 +6,10 @@
     font-family: Regular Noto Sans CJK TC;
     font-size: $fontsize-m;
 }
+.noScroll{
+    overflow: hidden;
+    height: 100vh;
+}
 
 header{
     background: $color-12;

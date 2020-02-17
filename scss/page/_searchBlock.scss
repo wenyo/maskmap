@@ -2,14 +2,14 @@
     display: inline-block;
     position: relative;
     margin: 2px;
-    img, i{
+    img, &>i{
         width: 24px;
         height: 24px;
         position: absolute;
         top: 13px;
         right: 10px;
     }
-    i{
+    &>i{
         font-size:$fontsize-xxl;
         color: $color-4;
     }
@@ -23,7 +23,7 @@
     left: 16px;
     width: 343px;
     height: 46px;
-    background: $color-12 0% 0% no-repeat padding-box;
+    background: $color-12;
     border: 1px solid $color-10;
     border-radius: 10px;
     opacity: 1;
@@ -35,3 +35,40 @@
         width: 100%;
     }
 }
+
+.active{
+    border-radius: 10px 10px 0 0;
+}
+
+.searchBar{
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid $color-10;
+    border-top: none;
+    font-size: $fontsize-xl;
+    color: $color-4;
+    background: $color-12;
+    i{
+        margin-right: 10px;
+    }
+    li{
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        @include pointer;
+        @include tran-3;
+        &:hover{
+            color: $color-master;
+            box-shadow: 0 0 10px $color-10 inset;
+        }
+    }
+    .clearData{
+        color: $color-5;
+        &:hover{
+            color: $color-2;
+        }
+    }
+}
+

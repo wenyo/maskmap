@@ -67,6 +67,11 @@ img {
   font-size: 12px;
 }
 
+.noScroll {
+  overflow: hidden;
+  height: 100vh;
+}
+
 header {
   background: #FFFFFF;
   padding: 20px 16px;
@@ -228,7 +233,7 @@ section {
   margin: 2px;
 }
 
-.searchInput img, .searchInput i {
+.searchInput img, .searchInput > i {
   width: 24px;
   height: 24px;
   position: absolute;
@@ -236,7 +241,7 @@ section {
   right: 10px;
 }
 
-.searchInput i {
+.searchInput > i {
   font-size: 20px;
   color: #34495E;
 }
@@ -252,7 +257,7 @@ section {
   left: 16px;
   width: 343px;
   height: 46px;
-  background: #FFFFFF 0% 0% no-repeat padding-box;
+  background: #FFFFFF;
   border: 1px solid #34495E33;
   border-radius: 10px;
   opacity: 1;
@@ -267,6 +272,54 @@ section {
   .search {
     width: 100%;
   }
+}
+
+.active {
+  border-radius: 10px 10px 0 0;
+}
+
+.searchBar {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: 1px solid #34495E33;
+  border-top: none;
+  font-size: 16px;
+  color: #34495E;
+  background: #FFFFFF;
+}
+
+.searchBar i {
+  margin-right: 10px;
+}
+
+.searchBar li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.searchBar li:hover {
+  color: #E67E22;
+  -webkit-box-shadow: 0 0 10px #34495E33 inset;
+          box-shadow: 0 0 10px #34495E33 inset;
+}
+
+.searchBar .clearData {
+  color: #97a0a9;
+}
+
+.searchBar .clearData:hover {
+  color: #11787A;
 }
 
 .maskData {
@@ -581,20 +634,21 @@ footer {
 .tips {
   position: fixed;
   z-index: 10;
-  top: 140px;
+  top: 130px;
   right: 16px;
-  max-width: 450px;
-  padding: 10px;
+  max-width: 550px;
+  padding: 20px;
   border-radius: 10px;
   -webkit-box-shadow: 0 0 10px #A9A9A9;
           box-shadow: 0 0 10px #A9A9A9;
   background-color: #FFFFFF;
+  font-size: 16px;
 }
 
 .tips li {
   margin: 5px 20px;
   list-style: circle;
-  line-height: 1.1em;
+  line-height: 1.5em;
 }
 
 .tips a {
@@ -613,7 +667,7 @@ footer {
   .tips {
     max-width: 80%;
     right: calc( 10% - 10px);
-    top: 200px;
+    top: 77px;
   }
 }
 
@@ -623,12 +677,20 @@ footer {
   transition: all .3s;
   float: right;
   font-size: 16px;
-  margin: 5px;
+  padding: 5px;
 }
 
 .tipsBtn:hover {
   color: #E67E22;
   font-size: 20px;
+}
+
+.smalltips {
+  padding: 0px;
+}
+
+.smalltips .tipsBtn {
+  padding: 10px;
 }
 
 .noteImpor {

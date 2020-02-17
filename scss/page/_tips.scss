@@ -1,17 +1,18 @@
 .tips{
     position: fixed;
     z-index: 10;
-    top: 140px;
+    top: 130px;
     right: 16px;
-    max-width: 450px;
-    padding: 10px;
+    max-width: 550px;
+    padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px $color-7;
     background-color: $color-12;
+    font-size: $fontsize-xl;
     li{
         margin: 5px 20px;
         list-style: circle;
-        line-height: 1.1em;
+        line-height: 1.5em;
     }
     a{
         color: $color-master;
@@ -25,7 +26,7 @@
     @include w768{
         max-width: 80%;
         right: calc( 10% - 10px );
-        top: 200px;
+        top: 77px;
     }
 }
 
@@ -34,10 +35,17 @@
     @include tran-3;
     float: right;
     font-size: $fontsize-xl;
-    margin: 5px;
+    padding: 5px;
     &:hover{
         color: $color-master;
         font-size: $fontsize-xxl;
+    }
+}
+
+.smalltips{
+    padding: 0px;
+    .tipsBtn{
+        padding: 10px;
     }
 }
 
