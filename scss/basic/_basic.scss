@@ -41,6 +41,33 @@ section{
     right: 0;
 }
 
+.warning{
+    position: fixed;
+    top: calc((100vh - 93px) / 2);
+    right: calc((100vw - 228px) / 2);
+    z-index: 10;
+    box-sizing: border-box;
+    padding: 20px 50px;
+    border-radius: 10px;
+    background-color: $color-12;
+    box-shadow: 0 0 10px $color-8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    p{
+        font-size: $fontsize-xl;
+        margin-bottom: 15px;
+    }
+    .ok{
+        background: $color-master;
+        color: $color-12;
+        padding: 5px 8px;
+        border-radius: 3px;
+        @include pointer;
+    }
+}
+
 .grayBack{
     background-color: $color-8;
 }

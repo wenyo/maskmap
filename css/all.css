@@ -109,6 +109,46 @@ section {
   right: 0;
 }
 
+.warning {
+  position: fixed;
+  top: calc((100vh - 93px) / 2);
+  right: calc((100vw - 228px) / 2);
+  z-index: 10;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 20px 50px;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+  -webkit-box-shadow: 0 0 10px #34495E4D;
+          box-shadow: 0 0 10px #34495E4D;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.warning p {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.warning .ok {
+  background: #E67E22;
+  color: #FFFFFF;
+  padding: 5px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
 .grayBack {
   background-color: #34495E4D;
 }
@@ -150,11 +190,23 @@ section {
 
 .dateInfo .illustrating {
   position: fixed;
-  width: 50vw;
-  height: auto;
-  top: 10%;
-  right: 25vw;
-  z-index: 10;
+  width: auto;
+  height: 90vh;
+  top: 5vh;
+  left: 35vw;
+  z-index: 9;
+}
+
+@media (max-width: 768px) {
+  .dateInfo .illustrating {
+    left: 15vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .dateInfo .illustrating {
+    left: 5vw;
+  }
 }
 
 .closeRule {

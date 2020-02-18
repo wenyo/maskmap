@@ -18,11 +18,17 @@
     }
     .illustrating{
         position: fixed;
-        width: 50vw;
-        height: auto;
-        top: 10%;
-        right: 25vw;
-        z-index: 10;
+        width: auto;
+        height: 90vh;
+        top: 5vh;
+        left: 35vw;
+        z-index: 9;
+        @include w768{
+            left: 15vw;
+        }
+        @include w600{
+            left: 5vw;
+        }
     }
 }
 .closeRule{

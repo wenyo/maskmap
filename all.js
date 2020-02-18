@@ -23,6 +23,7 @@ new Vue({
         searchStore: '',
         bTipShow: true,
         bRule: false,
+        bWarning: false,
 
         bGetLocation: false,
         iDistance: 5,
@@ -50,6 +51,10 @@ new Vue({
             .get('https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json', {})
             .then( response => {
                 this.vAllMaskData = response.data.features;
+                for (const maskInfo of this.vAllMaskData) {
+                    let service_periods = maskInfo.properties.service_periods;
+                    maskInfo.properties.iAvailable = this.getOpenTime(service_periods);
+                }
                 this.sUpdateTime = this.vAllMaskData[1].properties.updated.substring(11);
                 this.getLocation();
                 this.vLoading = false;
@@ -99,9 +104,6 @@ new Vue({
             this.vShowMask = [];
             this.resetDataNum();
             for (const maskInfo of this.vAllMaskData) {
-                let service_periods = maskInfo.properties.service_periods;
-                maskInfo.properties.iAvailable = this.getOpenTime(service_periods); // ### 預設不是跑這邊 所以沒跑到開店辨識顏色
-
                 let address = maskInfo.properties.address;
                 if(this.searchCity == ''){ 
                     this.vShowMask.push(maskInfo);
@@ -127,19 +129,26 @@ new Vue({
         // 得到使用者所在位置
         getLocation(){
             if (navigator.geolocation) {
-                this.bGetLocation = true;
-                this.searchCity = this.sMyLoction;
-                navigator.geolocation.getCurrentPosition(this.showLocation);
+                navigator.geolocation.getCurrentPosition(this.showLocation, this.getCity);
               } else {
-                this.bGetLocation = false;
-                this.getCity()
+                this.getCity();
                 console.log('google location error');
               }
         },
         showLocation(vLocation){
+            this.bGetLocation = true;
+            this.searchCity = this.sMyLoction;
             this.calDistance(vLocation);
             this.filterStore();
             this.sortStore();
+        },
+        clickMyLocation(){
+            if(this.bGetLocation){
+                this.searchCity = this.sMyLoction;
+                this.getNearbyStore(); 
+            }else{
+                this.bWarning = true;
+            }
         },
         // 顯示距離內的藥局
         filterStore(){

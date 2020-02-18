@@ -20,7 +20,7 @@
 </head>
 <body>
     <div    id="mask" 
-            :class='bTipShow ? "noScroll" : "" '
+            :class='bTipShow || bRule ? "noScroll" : "" '
             @click = 'bFocus1 = false; bFocus2 = false'
             v-cloak>
         <header>
@@ -58,7 +58,7 @@
                             @click.stop ='bFocus2 = true; bFocus1 = false'>
                     <img src="./img/ic_location.png">
                     <ul class='searchBar' v-if="bFocus2">
-                        <li @click='getNearbyStore(); searchCity = sMyLoction'>
+                        <li @click='clickMyLocation'>
                             <i class="fas fa-map-marker-alt"></i>
                             <span>{{sMyLoction}}</span>
                         </li>
@@ -77,7 +77,7 @@
             <section class='info'>
                 <div class="dateInfo">
                     <span class='date'>{{vDate[iDate]}}</span>
-                    <span>購買日</span>{{bGetLocation}}
+                    <span>購買日</span>
                     <img class='illustratingIcon' 
                          @click='bRule = true'
                          src="./img/ic_help@2x.png" />
@@ -91,7 +91,7 @@
 
                 <div class="detail" v-if='vShowMask.length'>
                     <div class="note">
-                        <p>距離方圓<span>{{iDistance}}公里</span>以內的供應商</p>
+                        <p v-if='bGetLocation'>距離方圓<span>{{iDistance}}公里</span>以內的供應商</p>
                         <p>資訊更新時間<span>{{sUpdateTime}}</span></p>
                     </div>
                     <div class="reLoading" @click='getMaskData()'>
@@ -120,7 +120,7 @@
                         <div class="name" :class='vOpenClass[maskInfo.properties.iAvailable]'>
                             <span>{{maskInfo.properties.name}}</span>
                             <a :href='maskInfo.properties.website' v-if='maskInfo.properties.website'><i class="fas fa-link"></i></a>
-                            <span>{{(maskInfo.geometry.coordinates[2].toFixed(2))}} km</span>
+                            <span v-if='bGetLocation'>{{(maskInfo.geometry.coordinates[2].toFixed(2))}} km</span>
                             <span>{{vOPenStr[maskInfo.properties.iAvailable]}}</span>
                         </div>
                         <div class='detailStyle'>
@@ -174,9 +174,14 @@
                 </ul>
 
             </section>
+
             <div  class="back" 
-                  :class='bTipShow || bRule ? ( bTipShow ? "grayBack" : "blueBack" ) : "" '
-                  v-if='bTipShow || bRule' @click= 'bTipShow = false'></div>
+                  :class='(bTipShow || bRule || bWarning) ? ( bRule ? "blueBack" : "grayBack" ) : "" '
+                  v-if='bTipShow || bRule || bWarning' @click= 'bTipShow = false'></div>
+            <div class="warning" v-if='bWarning'>
+                <p>請先開啟<span class='noteImpor'>定位設定</span></p>
+                <span class="ok" @click='bWarning = false'>好呦</span>
+            </div>
         </article>
 
         <footer>
