@@ -5,8 +5,8 @@ README
 
 ****
 
-wenyo [口罩即時查](https://wenyo.github.io/maskmap/)
-Penny Yang [UI設計稿](https://xd.adobe.com/view/6e126433-68ec-45ce-6c7d-62ac0cede399-1823/grid)
+wenyo [口罩即時查](https://wenyo.github.io/maskmap/)  
+Penny Yang [UI設計稿](https://xd.adobe.com/view/6e126433-68ec-45ce-6c7d-62ac0cede399-1823/grid)  
 
 ![](/img/maskmap.png)
 
@@ -14,6 +14,6 @@ Penny Yang [UI設計稿](https://xd.adobe.com/view/6e126433-68ec-45ce-6c7d-62ac0
 
 特別感謝
 
-kiang [口罩供需資訊平台](https://g0v.hackmd.io/gGrOI4_aTsmpoMfLP1OU4A)
-[THE F2E 2nd 前端修煉精神時光屋](https://challenge.thef2e.com/)
+kiang [口罩供需資訊平台](https://g0v.hackmd.io/gGrOI4_aTsmpoMfLP1OU4A)  
+[THE F2E 2nd 前端修煉精神時光屋](https://challenge.thef2e.com/)  
 
