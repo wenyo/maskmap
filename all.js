@@ -100,7 +100,7 @@ new Vue({
             this.resetDataNum();
             for (const maskInfo of this.vAllMaskData) {
                 let service_periods = maskInfo.properties.service_periods;
-                maskInfo.properties.iAvailable = this.getOpenTime(service_periods);
+                maskInfo.properties.iAvailable = this.getOpenTime(service_periods); // ### 預設不是跑這邊 所以沒跑到開店辨識顏色
 
                 let address = maskInfo.properties.address;
                 if(this.searchCity == ''){ 
@@ -132,6 +132,7 @@ new Vue({
                 navigator.geolocation.getCurrentPosition(this.showLocation);
               } else {
                 this.bGetLocation = false;
+                this.getCity()
                 console.log('google location error');
               }
         },
