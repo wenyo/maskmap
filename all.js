@@ -37,9 +37,6 @@ new Vue({
         this.getWeeklyDay();
         this.getLocalStorage();
         this.getMaskData();
-        setTimeout(function(){
-            this.getMaskData();
-        }.bind(this), 600000);
     },
     methods: {
         // 得到口罩資料
