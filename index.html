@@ -178,7 +178,7 @@
 
             <div  class="back" 
                   :class='(bTipShow || bRule || bWarning) ? ( bRule ? "blueBack" : "grayBack" ) : "" '
-                  v-if='bTipShow || bRule || bWarning' @click= 'bTipShow = false'></div>
+                  v-if='bTipShow || bRule || bWarning' @click= 'bTipShow = false; bRule = false; bWarning= false'></div>
             <div class="warning" v-if='bWarning'>
                 <p>請先開啟<span class='noteImpor'>定位設定</span></p>
                 <span class="ok" @click='bWarning = false'>好呦</span>
