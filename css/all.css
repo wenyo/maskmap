@@ -190,22 +190,24 @@ section {
 
 .dateInfo .illustrating {
   position: fixed;
-  width: auto;
-  height: 90vh;
+  width: 600px;
+  height: auto;
   top: 5vh;
   left: 20%;
   z-index: 9;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 920px) {
   .dateInfo .illustrating {
-    left: 15vw;
+    left: 10vw;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .dateInfo .illustrating {
     left: 5vw;
+    width: 80vw;
+    height: auto;
   }
 }
 

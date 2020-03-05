@@ -18,16 +18,18 @@
     }
     .illustrating{
         position: fixed;
-        width: auto;
-        height: 90vh;
+        width: 600px;
+        height: auto;
         top: 5vh;
         left: 20%;
         z-index: 9;
-        @include w768{
-            left: 15vw;
+        @include w920{
+            left: 10vw;
         }
-        @include w600{
+        @include w768{
             left: 5vw;
+            width: 80vw;
+            height: auto;
         }
     }
 }
