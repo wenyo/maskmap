@@ -72,21 +72,36 @@
                         </li>
                     </ul>
                 </div>
+                <div class="condition">
+                    <span @click='bSortShow = !bSortShow'>篩選條件</span>
+                    <ul v-if='bSortShow'>
+                        <li>
+                            <label>
+                                <input type="checkbox" v-model='vCondition.adult' @change='sortCondition'>
+                                <span>成人</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" v-model='vCondition.childern' @change='sortCondition'>
+                                <span>兒童</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="radio" name="sort" value="distance" v-model='sSort' checked>
+                                <span>距離</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="sort" value="number" v-model='sSort' >
+                                <span>數量</span>
+                            </label>                            
+                        </li>
+                    </ul>
             </section>
 
             <section class='info'>
                 <div class="dateInfo">
                     <span class='date'>{{vDate[iDate]}}</span>
                     <span>購買日</span>
-                    <img class='illustratingIcon' 
-                         @click='bRule = true'
-                         src="./img/ic_help@2x.png" />
-                    <i   v-if='bRule' 
-                         class="fas fa-times closeRule"
-                         @click = 'bRule = false'></i>
-                    <img class='illustrating' 
-                         v-if='bRule'
-                         src="./img/rule_v3.jpg" alt="">
                 </div>
 
                 <div class="detail" v-if='vShowMask.length'>
@@ -102,7 +117,7 @@
             </section>
 
             <section class="maskData" v-if='vShowMask.length'>
-                <div class="pharmacy" v-for='(maskInfo, idx) in vShowMask' v-if='idx < dataNumberNow'>
+                <div class="pharmacy" v-for='(maskInfo, idx) in checkMaskNum(vShowMask)' v-if='idx < dataNumberNow'>
                     <div class="maskNumber">
                         <div class="maskStyle" :class='vMaskClass[getMaskStockIdx(maskInfo.properties.mask_adult)]'>
                             <div>成人口罩數量</div>
@@ -127,7 +142,7 @@
                             <span>地址</span>
                             <span class="address">{{maskInfo.properties.address}}</span>
                             <span class='bottomLine'>
-                                <a :href='getStoreLocation(maskInfo.geometry)' target="_blank">於地圖查看</a>
+                                <a :href='getStoreLocation(maskInfo)' target="_blank">於地圖查看</a>
                             </span>
                         </div>
                         <div class='detailStyle'>
@@ -153,28 +168,38 @@
                 <p v-else>No Result</p>
             </section>
 
-            <section class='btnBlock' v-if='vShowMask.length > dataNumberNow'>
+            <section class='btnBlock' v-if='iShowMaskLen > dataNumberNow'>
                 <div class="more" @click='getMoreData()'>
-                    <p>尚有{{vShowMask.length - dataNumberNow}}筆</p>
+                    <p>尚有{{iShowMaskLen - dataNumberNow}}筆</p>
                     <div class='btn01'>查看更多</div>
                 </div>
                 <a class='btn01 top' href='#mask'>TOP</a>
             </section>
 
-            <section class="tips" :class='!bTipShow ? "smalltips" :"" ' v-if='!bRule'>
-                <span class="tipsBtn" @click='bTipShow = !bTipShow'>
-                    <i v-if='bTipShow' class="fas fa-times-circle"></i>
-                    <i v-else class="fas fa-exclamation-circle"></i>
-                </span>
+            <section class='tpsHome' :class='!bTipShow ? "smalltips" :"" ' @click.self='bTipShow = !bTipShow'>
+                <div class="tips" :class='bTipShow ? "tipSttyle" :"" '>
+                    <span class="tipsBtn" @click='bTipShow = !bTipShow'>
+                        <i v-if='bTipShow' class="fas fa-times-circle"></i>
+                        <i v-else class="fas fa-exclamation-circle"></i>
+                    </span>
+                    <div class="tipContent" v-if='bTipShow'>
+                        <div>
+                            <img src="./img/rule_v4.jpg" v-if='bTipShow'>
+                            <ul v-if='bTipShow'>
+                                <li>部分藥局因採發放號碼牌方式，方便民眾購買口罩，系統目前無法顯示已發送<span class='noteImpor'>號碼牌數量</span>。</li>
+                                <li>口罩數量以藥局實際存量為主，線上查詢之<span class='noteImpor'>數量僅供參考</span>。</li>
+                                <li>如果藥局的庫存或者備註有誤，<span class='noteImpor'>可以禮貌提醒藥師確認系統資料</span>：
+                                    <ul class='tipsDetail'>
+                                        <li>備註: 可請藥師連線至 VPN 後進入「看診資料及掛號費」<br/>點選(1)<span class='noteImpor'>每日固定看診時段</span> (2)<span class='noteImpor'>固定看診時段備註欄</span><br/>可修正藥局<span class='noteImpor'>販賣口罩起迄時間</span>及相關欲通知民眾事項</li>
+                                        <li>庫存: 可請藥師瀏覽「防疫口罩管控系統VPN登錄作業使用者手冊」的第五頁，有說明<span class='noteImpor'>負數</span>的操作方式。</li>
+                                    </ul>
+                                </li> 
+                            </ul>
+                        </div>
 
-                <ul v-if='bTipShow'>
-                    <li>部分藥局因採發放號碼牌方式，方便民眾購買口罩，<span class='noteImpor'>系統目前無法顯示已發送號碼牌數量</span>。</li>
-                    <li>口罩數量以藥局實際存量為主，<span class='noteImpor'>線上查詢之數量僅供參考</span>。</li>
-                    <li>若您的藥局有需要加註的公告事項，可以填寫<a href='https://pse.is/KH7DC'>表單</a></li>
-                    <li>2/6 17:40 開始，資料來源30秒更新一次。</li>
-                    <li>除了常常排隊的藥局外，<span class='noteImpor'>固定診所的藥局也有配發</span>，往往不用排隊也不用早到都還有剩，可以到附近的藥局詢問，以減少與人群群聚的機會。</li>
-                </ul>
+                    </div>
 
+                </div>
             </section>
 
             <div  class="back" 

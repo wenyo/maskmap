@@ -72,3 +72,42 @@
     }
 }
 
+.condition{
+    margin: 15px 0;
+    position: relative;
+    &>span{
+        background-color: $color-master;
+        color: $color-11;
+        padding: 10px 15px;
+        border-radius: 5px;
+        margin: 2px;
+        display: inline-block;
+        @include pointer;
+    }
+    ul{
+        display: inline-flex;
+        flex-direction: row;
+        justify-content: space-between;
+        box-shadow: 1px 1px 5px $color-5;
+        padding: 10px 5px;
+        border-radius: 3px;
+        position: absolute;
+        top: 0;
+        left: 85px;
+        background-color: $color-12;
+        @include w400{
+            top: 40px;
+            left: 0;
+        }
+    }
+    li{
+        padding: 0 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100px;
+    }
+    li:first-child{
+        border-right: 1px solid $color-5;
+    }
+}

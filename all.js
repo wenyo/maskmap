@@ -2,20 +2,23 @@ new Vue({
     el: '#mask',
     data:{
         nowHour: new Date().getHours(), // 現在幾點
-        // nowHour: 14, // 現在幾點
         iWeeklyDay: new Date().getDay(), // 得到星期幾
         vHours: [8,12,17,22], // 上午 下午 晚上分界
         iHour: -1, //vHours idx
         vOpenClass: ['active', 'active_rest', 'rest'],
         vOPenStr: ['營業中', '即將休息', '休息中'],
+        vCondition:{'adult': false, 'childern': false},
+        sSort: 'distance', // 預設以距離由近到遠排序
 
         vDate: ['偶數','單數','大家'],
         iDate: 0, // vDate idx
         sUpdateTime: '', // 最新更新時間
         vAllMaskData: [],
         vShowMask: [],
+        iShowMaskLen: 0,
         vLoading: false,
         dataNumberNow: 6,
+        dataShowNumber: 0,
         dataNumber: 6,
         vMaskImg: ['./img/ic_stock_full@2x.png', './img/ic_stock_few@2x.png', './img/ic_stock_none@2x.png'],
         vMaskClass: ['full_mask', 'few_mask', 'none_mask'],
@@ -24,7 +27,7 @@ new Vue({
         bTipShow: true,
         bRule: false,
         bWarning: false,
-
+        bSortShow: false,
         bGetLocation: false,
         iDistance: 5,
         vHistory: [],
@@ -132,13 +135,15 @@ new Vue({
                 console.log('google location error');
               }
         },
+        // 得到定位後顯示 location
         showLocation(vLocation){
             this.bGetLocation = true;
             this.searchCity = this.sMyLoction;
             this.calDistance(vLocation);
             this.filterStore();
-            this.sortStore();
+            this.sortStoreDistance();
         },
+        // 從選單點選我的位置
         clickMyLocation(){
             if(this.bGetLocation){
                 this.searchCity = this.sMyLoction;
@@ -151,9 +156,20 @@ new Vue({
         filterStore(){
             this.vShowMask = [];
             this.resetDataNum();
+
             this.vShowMask = this.vAllMaskData.filter( vStore => {
-                return vStore.geometry.coordinates[2]  <= this.iDistance;
+                return vStore.geometry.coordinates[2] <= this.iDistance;
             })
+        },
+        // 過濾口罩數量
+        checkMaskNum(vShowMask){
+            vShowMask = vShowMask.filter(vStore => {
+                let bAdult = !this.vCondition.adult || vStore.properties.mask_adult > 0;
+                let bChild = !this.vCondition.childern || vStore.properties.mask_child > 0;
+                return bAdult && bChild;
+            })
+            this.iShowMaskLen = vShowMask.length
+            return vShowMask
         },
         // 計算距離
         calDistance(vLocation){
@@ -169,25 +185,49 @@ new Vue({
             });
         },
         // 由近到遠排序
-        sortStore(){
+        sortStoreDistance(){
             this.vShowMask.sort(function(x, y){
-                return x.geometry.coordinates[2] -y.geometry.coordinates[2]
+                return x.geometry.coordinates[2] - y.geometry.coordinates[2];
             })
+        },
+        // 由多到少
+        sortStoreNum(){
+            if(this.vCondition.adult){
+                this.vShowMask.sort(function(x, y){
+                    return - x.properties.mask_adult + y.properties.mask_adult;
+                })
+            }else if(this.vCondition.childern){
+                this.vShowMask.sort(function(x, y){
+                    return -x.properties.mask_child + y.properties.mask_child;
+                })
+            }else{
+                this.vShowMask.sort(function(x, y){
+                    return -(x.properties.mask_child + x.properties.mask_adult) + (y.properties.mask_child + y.properties.mask_adult);
+                })
+            }
+        },
+        // 排序選項
+        sortCondition(){
+            if(this.sSort == 'distance'){
+                this.sortStoreDistance();
+            }else if(this.sSort == 'number'){
+                this.sortStoreNum();
+            }
         },
         // 點擊以我的位置查詢
         getNearbyStore(){
             if(this.bGetLocation){
                 this.filterStore();
-                this.sortStore();
+                this.sortStoreDistance();
             }else{
                 this.getLocalStorage();
             }
         },
         // 地圖 url
-        getStoreLocation(vLocation){
-            let longitude = vLocation.coordinates[0];
-            let latitude = vLocation.coordinates[1];
-            return `http://maps.google.com/maps?q=${latitude},${longitude}`;
+        getStoreLocation(vMaskMap){
+            let name = vMaskMap.properties.name
+            let address = vMaskMap.properties.address
+            return `https://www.google.com.tw/maps?q=${name} ${address}`;
         },
         // 增加搜尋歷史紀錄
         addToLocalStorage(key, search){
@@ -225,6 +265,9 @@ new Vue({
             }else{
                 this.getCity();
             }
+        },
+        filterIdentyfy(identyfy){
+            this.vCondition[identyfy] = !this.vCondition[identyfy] 
         }
     },watch: {
         // 監聽搜尋地址
@@ -246,6 +289,9 @@ new Vue({
                 this.getStore();
                 this.addToLocalStorage('searchStore', this.searchStore);
             }.bind(this), 1500)
-        }
+        },
+        sSort(){
+            this.sortCondition();
+        },
     },
 })

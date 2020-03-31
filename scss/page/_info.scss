@@ -1,5 +1,5 @@
 .dateInfo{
-    width: 160px;
+    width: 125px;
     display: inline-flex;
     align-items: flex-end;
     justify-content: space-between;
@@ -18,18 +18,18 @@
     }
     .illustrating{
         position: fixed;
-        width: 600px;
-        height: auto;
-        top: 5vh;
-        left: 20%;
-        z-index: 9;
-        @include w920{
-            left: 10vw;
-        }
-        @include w768{
-            left: 5vw;
-            width: 80vw;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            width: 500px;
             height: auto;
+            max-width: 100%;
         }
     }
 }

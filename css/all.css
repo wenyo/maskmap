@@ -102,6 +102,7 @@ section {
 }
 
 .back {
+  z-index: 1;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -158,7 +159,7 @@ section {
 }
 
 .dateInfo {
-  width: 160px;
+  width: 125px;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -190,25 +191,26 @@ section {
 
 .dateInfo .illustrating {
   position: fixed;
-  width: 600px;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 2;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.dateInfo .illustrating img {
+  width: 500px;
   height: auto;
-  top: 5vh;
-  left: 20%;
-  z-index: 9;
-}
-
-@media (max-width: 920px) {
-  .dateInfo .illustrating {
-    left: 10vw;
-  }
-}
-
-@media (max-width: 768px) {
-  .dateInfo .illustrating {
-    left: 5vw;
-    width: 80vw;
-    height: auto;
-  }
+  max-width: 100%;
 }
 
 .closeRule {
@@ -374,6 +376,67 @@ section {
 
 .searchBar .clearData:hover {
   color: #11787A;
+}
+
+.condition {
+  margin: 15px 0;
+  position: relative;
+}
+
+.condition > span {
+  background-color: #E67E22;
+  color: #FAFAFA;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin: 2px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.condition ul {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-shadow: 1px 1px 5px #97a0a9;
+          box-shadow: 1px 1px 5px #97a0a9;
+  padding: 10px 5px;
+  border-radius: 3px;
+  position: absolute;
+  top: 0;
+  left: 85px;
+  background-color: #FFFFFF;
+}
+
+@media (max-width: 400px) {
+  .condition ul {
+    top: 40px;
+    left: 0;
+  }
+}
+
+.condition li {
+  padding: 0 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100px;
+}
+
+.condition li:first-child {
+  border-right: 1px solid #97a0a9;
 }
 
 .maskData {
@@ -685,52 +748,111 @@ footer {
   background-image: linear-gradient(to top, #97a0a9 50%, rgba(0, 0, 0, 0) 50.1%);
 }
 
-.tips {
+.tpsHome {
   position: fixed;
   z-index: 10;
-  top: 130px;
-  right: 16px;
-  max-width: 550px;
-  padding: 20px;
-  border-radius: 10px;
-  -webkit-box-shadow: 0 0 10px #A9A9A9;
-          box-shadow: 0 0 10px #A9A9A9;
-  background-color: #FFFFFF;
-  font-size: 16px;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.tips li {
+.tipSttyle {
+  height: 500px;
+  max-width: 550px;
+  max-height: 90vh;
+}
+
+@media (max-width: 400px) {
+  .tipSttyle {
+    max-height: 65vh;
+  }
+}
+
+.tips {
+  -webkit-box-shadow: 0 0 10px #A9A9A9;
+          box-shadow: 0 0 10px #A9A9A9;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+  padding: 20px 15px;
+  position: relative;
+}
+
+.tipContent {
+  display: inline-block;
+  font-size: 16px;
+  overflow-y: scroll;
+}
+
+.tipContent::-webkit-scrollbar {
+  width: 3px;
+  background: #0000001A;
+}
+
+.tipContent::-webkit-scrollbar-thumb {
+  background: #11787a48;
+  border-radius: 3px;
+}
+
+.tipContent > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.tipContent li {
   margin: 5px 20px;
   list-style: circle;
   line-height: 1.5em;
 }
 
-.tips a {
+.tipContent a {
   color: #E67E22;
   font-weight: bold;
   -webkit-transition: all .3s;
   transition: all .3s;
 }
 
-.tips a:hover {
+.tipContent a:hover {
   background: #E67E22;
   color: #FFFFFF;
 }
 
-@media (max-width: 768px) {
-  .tips {
-    max-width: 80%;
-    right: calc( 10% - 10px);
-    top: 77px;
-  }
+.tipContent img {
+  height: 300px;
+  width: auto;
+  max-height: 40vh;
+  margin-bottom: 10px;
+  border-radius: 5px;
 }
 
 .tipsBtn {
   cursor: pointer;
   -webkit-transition: all .3s;
   transition: all .3s;
-  float: right;
-  font-size: 16px;
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  font-size: 20px;
   padding: 5px;
 }
 
@@ -740,17 +862,36 @@ footer {
 }
 
 .smalltips {
-  padding: 0px;
+  top: 150px;
+  left: unset;
+  bottom: unset;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 .smalltips .tipsBtn {
   padding: 10px;
+  top: 0;
+  left: 0;
+}
+
+.smalltips .tips {
+  padding: 20px;
 }
 
 .noteImpor {
   font-weight: bolder;
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(50%, #ffd95c), color-stop(50.1%, rgba(0, 0, 0, 0)));
   background-image: linear-gradient(to top, #ffd95c 50%, rgba(0, 0, 0, 0) 50.1%);
+}
+
+.tipsDetail {
+  font-size: 14px;
+  border: 1px solid #00000036;
+  margin: 8px 0;
+  padding: 6px;
+  border-radius: 0 0 5px 5px;
 }
 
 [v-cloak] {
