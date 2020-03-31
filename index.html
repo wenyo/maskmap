@@ -182,7 +182,7 @@
                         <i v-if='bTipShow' class="fas fa-times-circle"></i>
                         <i v-else class="fas fa-exclamation-circle"></i>
                     </span>
-                    <div class="tipContent" v-if='bTipShow'>
+                    <div class="tipContent" v-if='bTipShow' :class='bTipShow ? "tipSttyle" :"" '>
                         <div>
                             <img src="./img/rule_v4.jpg" v-if='bTipShow'>
                             <ul v-if='bTipShow'>
