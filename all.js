@@ -8,7 +8,7 @@ new Vue({
         vOpenClass: ['active', 'active_rest', 'rest'],
         vOPenStr: ['營業中', '即將休息', '休息中'],
         vCondition:{'adult': false, 'childern': false},
-        sSort: 'distance', // 預設以距離由近到遠排序
+        sSort: 'number', // 預設以距離由近到遠排序
 
         vDate: ['偶數','單數','大家'],
         iDate: 0, // vDate idx
@@ -111,6 +111,7 @@ new Vue({
                     this.vShowMask.push(maskInfo);
                 }
             }
+            this.sortCondition();
         },
         // 過濾店家名稱
         getStore(){
@@ -138,10 +139,10 @@ new Vue({
         // 得到定位後顯示 location
         showLocation(vLocation){
             this.bGetLocation = true;
+            this.sSort = 'distance'; // 得到定位後排序就用距離
             this.searchCity = this.sMyLoction;
             this.calDistance(vLocation);
             this.filterStore();
-            this.sortStoreDistance();
         },
         // 從選單點選我的位置
         clickMyLocation(){
@@ -268,7 +269,11 @@ new Vue({
         },
         filterIdentyfy(identyfy){
             this.vCondition[identyfy] = !this.vCondition[identyfy] 
-        }
+        },
+        showLacationAlert(){
+            if(!this.bGetLocation){ this.bWarning = true }
+            this.sSort = 'number';
+        },
     },watch: {
         // 監聽搜尋地址
         searchCity(){

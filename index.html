@@ -20,7 +20,7 @@
 </head>
 <body>
     <div    id="mask" 
-            :class='bTipShow || bRule ? "noScroll" : "" '
+            :class='{ "noScroll" : (bTipShow || bRule)}'
             @click = 'bFocus1 = false; bFocus2 = false'
             v-cloak>
         <header>
@@ -36,7 +36,7 @@
                 <div class="searchInput">
                     <input  type="text" 
                             placeholder="請輸入店家名稱" 
-                            class="search" :class=' bFocus1 ? "active" : "" ' 
+                            class="search" :class='{ "active" : bFocus1 }' 
                             v-model='searchStore'
                             @click.stop ='bFocus1 = true; bFocus2 = false'>
                     <i class="fas fa-hospital"></i>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="searchInput">
                     <input  type="text" placeholder="請輸入想查詢位置" 
-                            class="search" :class=' bFocus2 ? "active" : "" ' 
+                            class="search" :class='{ "active" : bFocus2 }'
                             v-model='searchCity'
                             @click.stop ='bFocus2 = true; bFocus1 = false'>
                     <img src="./img/ic_location.png">
@@ -76,22 +76,28 @@
                     <span @click='bSortShow = !bSortShow'>篩選條件</span>
                     <ul v-if='bSortShow'>
                         <li>
-                            <label>
-                                <input type="checkbox" v-model='vCondition.adult' @change='sortCondition'>
+                            <label :class='{"activeNum" : vCondition.adult}'>
+                                <input type="checkbox" 
+                                    v-model='vCondition.adult' 
+                                    @change='sortCondition'>
                                 <span>成人</span>
                             </label>
-                            <label>
-                                <input type="checkbox" v-model='vCondition.childern' @change='sortCondition'>
+                            <label :class='{"activeNum" : vCondition.childern}'>
+                                <input type="checkbox" 
+                                    v-model='vCondition.childern' 
+                                    @change='sortCondition'>
                                 <span>兒童</span>
                             </label>
                         </li>
-                        <li>
-                            <label>
-                                <input type="radio" name="sort" value="distance" v-model='sSort' checked>
+                        <li ref='sortCondition'>
+                            <label 
+                                :class='{ "unableCondition" : !bGetLocation,  "activeSort" : sSort == "distance" }' 
+                                @click='showLacationAlert'>
+                                <input type="radio" name="sort" value="distance" v-model='sSort' :disabled='!bGetLocation'>
                                 <span>距離</span>
                             </label>
-                            <label>
-                                <input type="radio" name="sort" value="number" v-model='sSort' >
+                            <label :class='{"activeSort" : sSort == "number"}'>
+                                <input type="radio" name="sort" value="number" v-model='sSort'>
                                 <span>數量</span>
                             </label>                            
                         </li>
@@ -176,13 +182,13 @@
                 <a class='btn01 top' href='#mask'>TOP</a>
             </section>
 
-            <section class='tpsHome' :class='!bTipShow ? "smalltips" :"" ' @click.self='bTipShow = !bTipShow'>
-                <div class="tips" :class='bTipShow ? "tipSttyle" :"" '>
+            <section class='tpsHome' :class='{ "smalltips" : !bTipShow }' @click.self='bTipShow = !bTipShow'>
+                <div class="tips" :class='{ "tipSttyle" : bTipShow}'>
                     <span class="tipsBtn" @click='bTipShow = !bTipShow'>
                         <i v-if='bTipShow' class="fas fa-times-circle"></i>
                         <i v-else class="fas fa-exclamation-circle"></i>
                     </span>
-                    <div class="tipContent" v-if='bTipShow' :class='bTipShow ? "tipSttyle" :"" '>
+                    <div class="tipContent" v-if='bTipShow' :class='{ "tipSttyle" : bTipShow }'>
                         <div>
                             <img src="./img/rule_v4.jpg" v-if='bTipShow'>
                             <ul v-if='bTipShow'>

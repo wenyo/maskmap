@@ -89,7 +89,7 @@
         flex-direction: row;
         justify-content: space-between;
         box-shadow: 1px 1px 5px $color-5;
-        padding: 10px 5px;
+        padding: 5px;
         border-radius: 3px;
         position: absolute;
         top: 0;
@@ -101,13 +101,36 @@
         }
     }
     li{
-        padding: 0 12px;
+        padding: 0 6px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width: 100px;
+        width: 80px;
     }
     li:first-child{
         border-right: 1px solid $color-5;
     }
+    input{
+        display: none;
+    }
+    label{
+        padding: 6px;
+        transition: all .3s;
+        @include pointer;
+        &:hover{
+            box-shadow: 0 0 1px $color-4 inset;
+        }
+    }
+}
+
+.unableCondition{
+    color: $color-7;
+}
+
+.activeSort{
+    background: $color-17;
+}
+
+.activeNum{
+    background: $color-19;
 }
