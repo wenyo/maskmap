@@ -102,6 +102,8 @@ new Vue({
         // 過濾地區
         getCity(){
             this.vShowMask = [];
+            this.iShowMaskLen = 0;
+
             this.resetDataNum();
             for (const maskInfo of this.vAllMaskData) {
                 let address = maskInfo.properties.address;
