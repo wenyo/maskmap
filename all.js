@@ -56,14 +56,14 @@ new Vue({
                         maskInfo.properties.iAvailable = this.getOpenTime(service_periods);
                     }
                     this.sUpdateTime = this.vAllMaskData[1].properties.updated.substring(11);
-                    if (this.searchCity == this.sMyLoction) {
-                        this.getLocation();
-                    } else {
-                        this.getCity();
-                        if (this.searchStore) {
-                            this.getStore();
-                        }
-                    }
+                    // if (this.searchCity == this.sMyLoction) {
+                    this.getLocation();
+                    // } else {
+                    //     this.getCity();
+                    //     if (this.searchStore) {
+                    //         this.getStore();
+                    //     }
+                    // }
                     this.vLoading = false;
                 })
         },
