@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +9,11 @@
     <meta name="description" content="即時查詢口罩數量">
 
     <!-- socaial media -->
-    <meta property='og:title' content='口罩即時查'/>
-    <meta property='og:description' content='即時查詢口罩數量'/>
+    <meta property='og:title' content='口罩即時查' />
+    <meta property='og:description' content='即時查詢口罩數量' />
     <meta property='og:image' content='https://wenyo.github.io/maskmap/img/logo_org.jpg'>
-    <meta property='og:type' content='website'/>
-    
+    <meta property='og:type' content='website' />
+
     <!-- favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="./img/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon/favicon-32x32.png">
@@ -23,21 +24,19 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-config" content="./img/favicon/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
-    
+
     <!-- apple mobile web app -->
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-title" content="maskmap"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="maskmap" />
 
     <link rel="stylesheet" href="./css/min/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
 </head>
+
 <body>
-    <div    id="mask" 
-            :class='{ "noScroll" : (bTipShow || bRule)}'
-            @click = 'bFocus1 = false; bFocus2 = false'
-            v-cloak>
+    <div id="mask" :class='{ "noScroll" : (bTipShow || bRule)}' @click='bFocus1 = false; bFocus2 = false' v-cloak>
         <header>
             <img src="./img/logo.png" alt="">
             <h1>口罩即時查</h1>
@@ -49,11 +48,7 @@
 
             <section class="searchBlock">
                 <div class="searchInput">
-                    <input  type="text" 
-                            placeholder="請輸入店家名稱" 
-                            class="search" :class='{ "active" : bFocus1 }' 
-                            v-model='searchStore'
-                            @click.stop ='bFocus1 = true; bFocus2 = false'>
+                    <input type="text" placeholder="請輸入店家名稱" class="search" :class='{ "active" : bFocus1 }' v-model='searchStore' @click.stop='bFocus1 = true; bFocus2 = false'>
                     <i class="fas fa-hospital"></i>
                     <ul class='searchBar' v-if="bFocus1">
                         <li v-for='store in vHistory.searchStore' v-if='vHistory.searchStore.length > 0' @click='searchStore = store'>
@@ -67,10 +62,7 @@
                     </ul>
                 </div>
                 <div class="searchInput">
-                    <input  type="text" placeholder="請輸入想查詢位置" 
-                            class="search" :class='{ "active" : bFocus2 }'
-                            v-model='searchCity'
-                            @click.stop ='bFocus2 = true; bFocus1 = false'>
+                    <input type="text" placeholder="請輸入想查詢位置" class="search" :class='{ "active" : bFocus2 }' v-model='searchCity' @click.stop='bFocus2 = true; bFocus1 = false'>
                     <img src="./img/ic_location.png">
                     <ul class='searchBar' v-if="bFocus2">
                         <li @click='clickMyLocation'>
@@ -105,23 +97,21 @@
                             </label>
                         </li>
                         <li ref='sortCondition'>
-                            <label 
-                                :class='{ "unableCondition" : !bGetLocation,  "activeSort" : sSort == "distance" }' 
-                                @click='showLacationAlert'>
+                            <label :class='{ "unableCondition" : !bGetLocation,  "activeSort" : sSort == "distance" }' @click='showLacationAlert'>
                                 <input type="radio" name="sort" value="distance" v-model='sSort' :disabled='!bGetLocation'>
                                 <span>距離</span>
                             </label>
                             <label :class='{"activeSort" : sSort == "number"}'>
                                 <input type="radio" name="sort" value="number" v-model='sSort'>
                                 <span>數量</span>
-                            </label>                            
+                            </label>
                         </li>
                     </ul>
             </section>
 
             <section class='info'>
                 <div class="dateInfo">
-                    <span class='date'>{{vDate[iDate]}}</span>
+                    <span class='date'>{{vDate[2]}}</span>
                     <span>購買日</span>
                 </div>
 
@@ -149,7 +139,7 @@
                             <div>兒童口罩數量</div>
                             <div><span>{{maskInfo.properties.mask_child}}</span>片</div>
                             <img :src="vMaskImg[getMaskStockIdx(maskInfo.properties.mask_child)]">
-                        </div>                       
+                        </div>
                     </div>
 
                     <div class="pharmacyInfo">
@@ -180,7 +170,7 @@
                             <span class="wrap">{{maskInfo.properties.custom_note}}</span class="wrap"></span>>
                         </div>
                     </div>
- 
+
                 </div>
             </section>
 
@@ -214,7 +204,7 @@
                                         <li>備註: 可請藥師連線至 VPN 後進入「看診資料及掛號費」<br/>點選(1)<span class='noteImpor'>每日固定看診時段</span> (2)<span class='noteImpor'>固定看診時段備註欄</span><br/>可修正藥局<span class='noteImpor'>販賣口罩起迄時間</span>及相關欲通知民眾事項</li>
                                         <li>庫存: 可請藥師瀏覽「防疫口罩管控系統VPN登錄作業使用者手冊」的第五頁，有說明<span class='noteImpor'>負數</span>的操作方式。</li>
                                     </ul>
-                                </li> 
+                                </li>
                             </ul>
                         </div>
 
@@ -223,9 +213,7 @@
                 </div>
             </section>
 
-            <div  class="back" 
-                  :class='(bTipShow || bRule || bWarning) ? ( bRule ? "blueBack" : "grayBack" ) : "" '
-                  v-if='bTipShow || bRule || bWarning' @click= 'bTipShow = false; bRule = false; bWarning= false'></div>
+            <div class="back" :class='(bTipShow || bRule || bWarning) ? ( bRule ? "blueBack" : "grayBack" ) : "" ' v-if='bTipShow || bRule || bWarning' @click='bTipShow = false; bRule = false; bWarning= false'></div>
             <div class="warning" v-if='bWarning'>
                 <p>請先開啟<span class='noteImpor'>定位設定</span></p>
                 <span class="ok" @click='bWarning = false'>好呦</span>
@@ -242,7 +230,8 @@
             <div class="author">wenda897436@gmail.com</div>
         </footer>
 
-    </div>
-    <script src="./all.js"></script>
+        </div>
+        <script src="./all.js"></script>
 </body>
+
 </html>
