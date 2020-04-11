@@ -15,10 +15,8 @@ new Vue({
         sUpdateTime: '', // 最新更新時間
         vAllMaskData: [],
         vShowMask: [],
-        iShowMaskLen: 0,
         vLoading: false,
         dataNumberNow: 6,
-        dataShowNumber: 0,
         dataNumber: 6,
         vMaskImg: ['./img/ic_stock_full@2x.png', './img/ic_stock_few@2x.png', './img/ic_stock_none@2x.png'],
         vMaskClass: ['full_mask', 'few_mask', 'none_mask'],
@@ -35,9 +33,10 @@ new Vue({
         bFocus2: false,
         sMyLoction: '我的位置'
     },
-    mounted() {
+    created() {
         this.getIHour();
         // this.getWeeklyDay();
+        this.searchCity = this.sMyLoction;
         this.getLocalStorage();
         this.getMaskData();
     },
@@ -56,14 +55,7 @@ new Vue({
                         maskInfo.properties.iAvailable = this.getOpenTime(service_periods);
                     }
                     this.sUpdateTime = this.vAllMaskData[1].properties.updated.substring(11);
-                    // if (this.searchCity == this.sMyLoction) {
                     this.getLocation();
-                    // } else {
-                    //     this.getCity();
-                    //     if (this.searchStore) {
-                    //         this.getStore();
-                    //     }
-                    // }
                     this.vLoading = false;
                 })
         },
@@ -108,22 +100,24 @@ new Vue({
         },
         // 過濾地區
         getCity() {
-            this.vShowMask = [];
-            this.iShowMaskLen = 0;
-
-            this.resetDataNum();
-            for (const maskInfo of this.vAllMaskData) {
-                let address = maskInfo.properties.address;
-                if (this.searchCity == '') {
-                    this.vShowMask.push(maskInfo);
-                } else if (address.indexOf(this.searchCity) > -1) {
-                    this.vShowMask.push(maskInfo);
+            if(this.searchCity !== this.sMyLoction){
+                for (const maskInfo of this.vAllMaskData) {
+                    let address = maskInfo.properties.address;
+                    if (this.searchCity == '') {
+                        this.vShowMask.push(maskInfo);
+                    } else if (address.indexOf(this.searchCity) > -1) {
+                        this.vShowMask.push(maskInfo);
+                    }
                 }
+            }else{
+                this.filterStore();
             }
+            this.resetDataNum();
             this.sortCondition();
         },
         // 過濾店家名稱
         getStore() {
+            if(!this.searchStore) return;
             this.vShowMask = this.vShowMask.filter(vStore => {
                 return vStore.properties.name.indexOf(this.searchStore) > -1;
             })
@@ -138,20 +132,25 @@ new Vue({
         },
         // 得到使用者所在位置
         getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(this.showLocation, this.getCity);
-            } else {
-                this.getCity();
+            this.bGetLocation = false;
+
+            if ( navigator.geolocation ) {
+                navigator.geolocation.getCurrentPosition(this.showLocation, this.notAllowLoction);
+            }else{
                 console.log('google location error');
+                this.getCity();
             }
         },
-        // 得到定位後顯示 location
+        // 得到定位後
         showLocation(vLocation) {
             this.bGetLocation = true;
-            this.sSort = 'distance'; // 得到定位後排序就用距離
-            this.searchCity = this.sMyLoction;
             this.calDistance(vLocation);
-            this.filterStore();
+            this.sSort = 'distance';
+        },
+        // 不允許得到定位
+        notAllowLoction(){
+            this.searchCity = this.searchCity == this.sMyLoction ? '' : this.searchCity;
+            this.getCity();
         },
         // 從選單點選我的位置
         clickMyLocation() {
@@ -164,9 +163,6 @@ new Vue({
         },
         // 顯示距離內的藥局
         filterStore() {
-            this.vShowMask = [];
-            this.resetDataNum();
-
             this.vShowMask = this.vAllMaskData.filter(vStore => {
                 return vStore.geometry.coordinates[2] <= this.iDistance;
             })
@@ -178,7 +174,6 @@ new Vue({
                 let bChild = !this.vCondition.childern || vStore.properties.mask_child > 0;
                 return bAdult && bChild;
             })
-            this.iShowMaskLen = vShowMask.length
             return vShowMask
         },
         // 計算距離
@@ -226,12 +221,8 @@ new Vue({
         },
         // 點擊以我的位置查詢
         getNearbyStore() {
-            if (this.bGetLocation) {
-                this.filterStore();
-                this.sortStoreDistance();
-            } else {
-                this.getLocalStorage();
-            }
+            this.filterStore();
+            this.sortStoreDistance();
         },
         // 地圖 url
         getStoreLocation(vMaskMap) {
@@ -271,7 +262,7 @@ new Vue({
         //  判斷位置欄位
         getDataFromLoction() {
             if (this.searchCity == this.sMyLoction) {
-                this.getNearbyStore()
+                this.getNearbyStore();
             } else {
                 this.getCity();
             }
@@ -283,11 +274,17 @@ new Vue({
             if (!this.bGetLocation) { this.bWarning = true }
             this.sSort = 'number';
         },
+        scrollTip(){
+            const tipContent = this.$refs.tipContent;
+            tipContent.scrollBy(0, tipContent.scrollHeight);
+        },
     },
     watch: {
         // 監聽搜尋地址
         searchCity() {
+            let sSearchCity = this.searchCity;
             setTimeout(function() {
+                if(sSearchCity !== this.searchCity) return;
                 this.vShowMask = [];
                 this.resetDataNum();
                 this.getDataFromLoction();
@@ -297,7 +294,10 @@ new Vue({
         },
         // 監聽搜尋店家
         searchStore() {
+            let sSearchStore = this.searchStore;
+
             setTimeout(function() {
+                if(sSearchStore !== this.searchStore) return;
                 this.vShowMask = [];
                 this.resetDataNum();
                 this.getDataFromLoction();
@@ -307,6 +307,13 @@ new Vue({
         },
         sSort() {
             this.sortCondition();
+        },
+        bGetLocation(){
+            this.getDataFromLoction()
+            this.getStore();
+        },
+        vAllMaskData(){
+            this.vShowMask = [];
         },
     },
 })

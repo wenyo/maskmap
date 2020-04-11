@@ -922,6 +922,48 @@ footer {
   border-radius: 0 0 5px 5px;
 }
 
+.scrollTip {
+  cursor: pointer;
+  position: absolute;
+  right: 30px;
+  bottom: 20px;
+  border: 2px solid #34495E;
+  background: #FFFFFF;
+  color: #34495E;
+  padding: 5px 8px;
+  border-radius: 15px;
+  -webkit-animation-name: scroll;
+          animation-name: scroll;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-duration: 1.5s;
+          animation-duration: 1.5s;
+}
+
+.scrollTip:hover {
+  -webkit-animation-play-state: paused;
+          animation-play-state: paused;
+  background: #a2d5d6;
+}
+
+@-webkit-keyframes scroll {
+  from {
+    bottom: 20px;
+  }
+  to {
+    bottom: 10px;
+  }
+}
+
+@keyframes scroll {
+  from {
+    bottom: 20px;
+  }
+  to {
+    bottom: 10px;
+  }
+}
+
 [v-cloak] {
   display: none;
 }

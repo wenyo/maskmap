@@ -106,3 +106,31 @@
     padding: 6px;
     border-radius: 0 0 5px 5px;
 }
+
+.scrollTip{
+    @include pointer;
+    position: absolute;
+    right: 30px;
+    bottom: 20px;
+    border: 2px solid $color-4;
+    background: $color-12;
+    color: $color-4;
+    padding: 5px 8px;
+    border-radius: 15px;
+    animation-name: scroll;
+    animation-iteration-count:infinite;
+    animation-duration: 1.5s;
+    &:hover{
+        animation-play-state: paused;
+        background: $color-19;
+    }
+}
+
+@keyframes scroll{
+    from{
+        bottom: 20px;
+    }
+    to{
+        bottom: 10px;
+    }
+}

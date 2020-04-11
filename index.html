@@ -62,9 +62,13 @@
                     </ul>
                 </div>
                 <div class="searchInput">
-                    <input type="text" placeholder="請輸入想查詢位置" class="search" :class='{ "active" : bFocus2 }' v-model='searchCity' @click.stop='bFocus2 = true; bFocus1 = false'>
+                    <input type="text" placeholder="請輸入想查詢地區" class="search" :class='{ "active" : bFocus2 }' v-model='searchCity' @click.stop='bFocus2 = true; bFocus1 = false'>
                     <img src="./img/ic_location.png">
                     <ul class='searchBar' v-if="bFocus2">
+                        <li class='clearData' @click.stop='bFocus2 = true; clearLocalStorage("searchCity")'>
+                            <i class="fas fa-trash-alt"></i>
+                            <span>清除紀錄</span>
+                        </li>
                         <li @click='clickMyLocation'>
                             <i class="fas fa-map-marker-alt"></i>
                             <span>{{sMyLoction}}</span>
@@ -72,10 +76,6 @@
                         <li v-for='city in vHistory.searchCity' v-if='vHistory.searchCity.length > 0' @click='searchCity = city'>
                             <i class="fas fa-map-marker-alt"></i>
                             <span>{{city}}</span>
-                        </li>
-                        <li class='clearData' @click.stop='bFocus2 = true; clearLocalStorage("searchCity")'>
-                            <i class="fas fa-trash-alt"></i>
-                            <span>清除紀錄</span>
                         </li>
                     </ul>
                 </div>
@@ -86,23 +86,23 @@
                             <label :class='{"activeNum" : vCondition.adult}'>
                                 <input type="checkbox" 
                                     v-model='vCondition.adult' 
-                                    @change='sortCondition'>
+                                    @change='sortCondition();resetDataNum()'>
                                 <span>成人</span>
                             </label>
                             <label :class='{"activeNum" : vCondition.childern}'>
                                 <input type="checkbox" 
                                     v-model='vCondition.childern' 
-                                    @change='sortCondition'>
+                                    @change='sortCondition();resetDataNum()'>
                                 <span>兒童</span>
                             </label>
                         </li>
                         <li ref='sortCondition'>
-                            <label :class='{ "unableCondition" : !bGetLocation,  "activeSort" : sSort == "distance" }' @click='showLacationAlert'>
-                                <input type="radio" name="sort" value="distance" v-model='sSort' :disabled='!bGetLocation'>
+                            <label :class='{ "unableCondition" : !bGetLocation,  "activeSort" : sSort == "distance" }'>
+                                <input type="radio" name="sort" value="distance" v-model='sSort' :disabled='!bGetLocation' @change='showLacationAlert();resetDataNum()'>
                                 <span>距離</span>
                             </label>
                             <label :class='{"activeSort" : sSort == "number"}'>
-                                <input type="radio" name="sort" value="number" v-model='sSort'>
+                                <input type="radio" name="sort" value="number" v-model='sSort' @change='resetDataNum'>
                                 <span>數量</span>
                             </label>
                         </li>
@@ -121,7 +121,7 @@
                         <p>資訊更新時間<span>{{sUpdateTime}}</span></p>
                     </div>
                     <div class="reLoading" @click='getMaskData()'>
-                        <span>重整列表</span>
+                        <span>刷新列表</span>
                     </div>
                 </div>
                 <div></div>
@@ -179,9 +179,9 @@
                 <p v-else>No Result</p>
             </section>
 
-            <section class='btnBlock' v-if='iShowMaskLen > dataNumberNow'>
+            <section class='btnBlock' v-if='vShowMask.length > dataNumberNow'>
                 <div class="more" @click='getMoreData()'>
-                    <p>尚有{{iShowMaskLen - dataNumberNow}}筆</p>
+                    <p>尚有{{vShowMask.length - dataNumberNow}}筆</p>
                     <div class='btn01'>查看更多</div>
                 </div>
                 <a class='btn01 top' href='#mask'>TOP</a>
@@ -193,21 +193,25 @@
                         <i v-if='bTipShow' class="fas fa-times-circle"></i>
                         <i v-else class="fas fa-exclamation-circle"></i>
                     </span>
-                    <div class="tipContent" v-if='bTipShow' :class='{ "tipSttyle" : bTipShow }'>
+                    <div    class="tipContent" ref='tipContent'
+                            v-if='bTipShow' :class='{ "tipSttyle" : bTipShow }'>
                         <div>
-                            <img src="./img/rule_v4.jpg" v-if='bTipShow'>
-                            <ul v-if='bTipShow'>
-                                <li>部分藥局因採發放號碼牌方式，方便民眾購買口罩，系統目前無法顯示已發送<span class='noteImpor'>號碼牌數量</span>。</li>
+                            <img src="./img/rule_v4.jpg">
+                            <ul>
+                                <li>部分藥局以發放號碼牌方式，便於民眾購買口罩，系統目前無法顯示已發送<span class='noteImpor'>號碼牌數量</span>。</li>
                                 <li>口罩數量以藥局實際存量為主，線上查詢之<span class='noteImpor'>數量僅供參考</span>。</li>
                                 <li>如果藥局的庫存或者備註有誤，<span class='noteImpor'>可以禮貌提醒藥師確認系統資料</span>：
                                     <ul class='tipsDetail'>
-                                        <li>備註: 可請藥師連線至 VPN 後進入「看診資料及掛號費」<br/>點選(1)<span class='noteImpor'>每日固定看診時段</span> (2)<span class='noteImpor'>固定看診時段備註欄</span><br/>可修正藥局<span class='noteImpor'>販賣口罩起迄時間</span>及相關欲通知民眾事項</li>
-                                        <li>庫存: 可請藥師瀏覽「防疫口罩管控系統VPN登錄作業使用者手冊」的第五頁，有說明<span class='noteImpor'>負數</span>的操作方式。</li>
+                                        <li>備註: 可請藥師連線至 VPN 後進入「<a href="http://bit.ly/2ScrpB6">看診資料及掛號費</a>」<br/>點選(1)<span class='noteImpor'>每日固定看診時段</span> (2)<span class='noteImpor'>固定看診時段備註欄</span><br/>可修正藥局<span class='noteImpor'>販賣口罩起迄時間</span>及相關欲通知民眾事項</li>
+                                        <li>庫存: 可請藥師瀏覽「<a href="https://drive.google.com/file/d/11JABjDZVsUERxuw1iU07JARku2mdhYO4/view">防疫口罩管控系統VPN登錄作業使用者手冊</a>」的第五頁，有說明<span class='noteImpor'>負數</span>的操作方式。</li>
+                                        <li>公告: 請藥師點擊<a href="https://docs.google.com/forms/d/e/1FAIpQLSf1lLV7nNoZMFdOER7jmh735zM8W_0G8TJJKDEC3E0ZBPgEMQ/viewform">此表單</a>填寫。</li>
                                     </ul>
                                 </li>
                             </ul>
                         </div>
-
+                        <div class="scrollTip" @click='scrollTip'>
+                            <i class="fas fa-angle-double-down"></i>
+                        </div>
                     </div>
 
                 </div>
@@ -231,7 +235,7 @@
         </footer>
 
         </div>
-        <script src="./all.js?ver=200410"></script>
+        <script src="./all.js?ver=200412"></script>
 </body>
 
 </html>
