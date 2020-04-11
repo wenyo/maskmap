@@ -272,7 +272,6 @@ new Vue({
         },
         showLacationAlert() {
             if (!this.bGetLocation) { this.bWarning = true }
-            this.sSort = 'number';
         },
         scrollTip(){
             const tipContent = this.$refs.tipContent;
