@@ -53,7 +53,7 @@ Penny Yang [UI設計稿](https://xd.adobe.com/view/6e126433-68ec-45ce-6c7d-62ac0
 <img src="/img/readmeImg/dataFrom.png" width="80%">
 
 - 口罩數量：
-    - > 100：綠色
+    - 大於100：綠色
     - 0 ~ 100：橘色
     - 0：灰色
 
