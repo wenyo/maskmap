@@ -52,10 +52,19 @@ Penny Yang [UI設計稿](https://xd.adobe.com/view/6e126433-68ec-45ce-6c7d-62ac0
 ## 列表資訊
 <img src="/img/readmeImg/dataFrom.png" width="80%">
 
+<img src="/img/readmeImg/maskNum.png" width="35%">
+
 - 口罩數量：
     - 大於100：綠色
     - 0 ~ 100：橘色
     - 0：灰色
+  
+<img src="/img/readmeImg/openStatus.png" width="35%">
+
+- 營業狀態：
+    - 營業中：綠色
+    - 即將休息：橘色
+    - 休息：灰色
 
 ****
 特別感謝
