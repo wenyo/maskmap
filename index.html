@@ -51,13 +51,13 @@
                     <input type="text" placeholder="請輸入店家名稱" class="search" :class='{ "active" : bFocus1 }' v-model='searchStore' @click.stop='bFocus1 = true; bFocus2 = false'>
                     <i class="fas fa-hospital"></i>
                     <ul class='searchBar' v-if="bFocus1">
-                        <li v-for='store in vHistory.searchStore' v-if='vHistory.searchStore.length > 0' @click='searchStore = store'>
-                            <i class="fas fa-clinic-medical"></i>
-                            <span>{{store}}</span>
-                        </li>
                         <li class='clearData' @click.stop='bFocus1 = true;clearLocalStorage("searchStore")'>
                             <i class="fas fa-trash-alt"></i>
                             <span>清除紀錄</span>
+                        </li>
+                        <li v-for='store in vHistory.searchStore' v-if='vHistory.searchStore.length > 0' @click='searchStore = store'>
+                            <i class="fas fa-clinic-medical"></i>
+                            <span>{{store}}</span>
                         </li>
                     </ul>
                 </div>
